@@ -69,7 +69,7 @@ const EditLink = (props: EditLinkProps) => {
   // Form Submit method:
   const onSubmit = async (values: z.infer<typeof EditLinkSchema>) => {
     // Füge die Tags zu den Werten hinzu
-    (values as any).tags = selectedTags;
+    (values as unknown as { tags: string[] }).tags = selectedTags;
     // Check if slug & url are equals to prevent infinite redirect =>
     if (values.slug === values.url) {
       setLoading(false);

@@ -112,7 +112,15 @@ export const updateLink = async (values: z.infer<typeof EditLinkSchema> & { tags
   // Tags-Relation korrekt setzen, falls vorhanden
 
   const { tags, id, ...rest } = values;
-  const data: any = {
+  // id wird nicht benötigt, daher entfernen
+  type UpdateLinkData = Omit<typeof rest, 'id'> & {
+    creatorId: string | undefined;
+    tags?: {
+      deleteMany: Record<string, never>;
+      create: { tag: { connect: { id: string } } }[];
+    };
+  };
+  const data: UpdateLinkData = {
     ...rest,
     creatorId: currentUser.user?.id,
   };
