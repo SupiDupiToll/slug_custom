@@ -8,6 +8,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+
+import SelectTagsLink from "./select-tags-link";
 import { updateLink } from "@/server/actions/links";
 
 import {
@@ -49,6 +51,10 @@ const EditLink = (props: EditLinkProps) => {
   const [isError, setError] = useState<boolean>(false);
   const [unlockSlug, setUnlockSlug] = useState<boolean>(true);
 
+
+  // Tag-Handling
+  const [selectedTags, setSelectedTags] = useState<string[]>(props.linkTags.map(t => t.id));
+
   // Main form:
   const form = useForm<z.infer<typeof EditLinkSchema>>({
     resolver: zodResolver(EditLinkSchema),
@@ -62,6 +68,8 @@ const EditLink = (props: EditLinkProps) => {
 
   // Form Submit method:
   const onSubmit = async (values: z.infer<typeof EditLinkSchema>) => {
+    // Füge die Tags zu den Werten hinzu
+    (values as any).tags = selectedTags;
     // Check if slug & url are equals to prevent infinite redirect =>
     if (values.slug === values.url) {
       setLoading(false);
@@ -76,7 +84,7 @@ const EditLink = (props: EditLinkProps) => {
 
       // If not any changes in the tags, return:
       toast.success("Link edited successfully.", {
-        description: `Url: https://slug.vercel.app/${values.slug}`,
+        description: `Url: https://go.sdtoll.de/${values.slug}`,
         duration: 10000,
         closeButton: true,
       });
@@ -104,6 +112,14 @@ const EditLink = (props: EditLinkProps) => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-5">
+              <SelectTagsLink
+                tags={props.allTags}
+                selectedTags={selectedTags}
+                onSelectTag={(tag) => {
+                  if (!selectedTags.includes(tag)) setSelectedTags([...selectedTags, tag]);
+                }}
+                onDeleteTag={(tag) => setSelectedTags(selectedTags.filter(t => t !== tag))}
+              />
               <FormField
                 control={form.control}
                 name="url"

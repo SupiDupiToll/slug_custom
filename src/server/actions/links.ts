@@ -101,7 +101,7 @@ export const createLink = async (
  * Authentication required.
  * @type {z.infer<typeof EditLinkSchema>}
  */
-export const updateLink = async (values: z.infer<typeof EditLinkSchema>) => {
+export const updateLink = async (values: z.infer<typeof EditLinkSchema> & { tags?: string[] }) => {
   const currentUser = await auth();
 
   if (!currentUser) {
@@ -109,13 +109,23 @@ export const updateLink = async (values: z.infer<typeof EditLinkSchema>) => {
     return null;
   }
 
-  // Update link:
+  // Tags-Relation korrekt setzen, falls vorhanden
+
+  const { tags, id, ...rest } = values;
+  const data: any = {
+    ...rest,
+    creatorId: currentUser.user?.id,
+  };
+  if (tags) {
+    data.tags = {
+      deleteMany: {},
+      create: tags.map((tagId: string) => ({ tag: { connect: { id: tagId } } })),
+    };
+  }
+
   await db.links.update({
     where: { id: values.id },
-    data: {
-      ...values,
-      creatorId: currentUser.user?.id,
-    },
+    data,
   });
 
   revalidatePath("/");
