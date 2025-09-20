@@ -17,9 +17,9 @@ function RickrollRedirect({ url }: { url: string }) {
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
   <h2 className="text-2xl font-bold">Bitte warten...!</h2>
-      <img src="https://media.giphy.com/media/Vuw9m5wXviFIQ/giphy.gif" alt="Rickroll GIF" className="rounded-lg shadow-lg w-80 h-60 object-cover" />
+      <img src="https://media1.tenor.com/m/x8v1oNUOmg4AAAAd/rickroll-roll.gif" alt="Rickroll GIF" className="rounded-lg shadow-lg w-80 h-60 object-cover" />
   <p className="text-neutral-500">Du wirst gleich weitergeleitet...</p>
-  <p className="text-neutral-500">...und du wurdest gerickrollt</p>
+  <p className="text-neutral-500">...und du wurdest gerickrollt!</p>
     </div>
   );
 }

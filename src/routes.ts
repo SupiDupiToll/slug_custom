@@ -3,7 +3,7 @@
  * 🔓 Not required for authentication.
  * @type {string[]}
  */
-export const publicRoutes = ["/", "/docs", "verify", "/check"];
+export const publicRoutes = ["/", "/docs", "verify", "/r"];
 
 /**
  * 🌱 These routes are used for authentication.
@@ -32,7 +32,7 @@ export const protectedRoutes = ["/dashboard", "/dashboard/settings"];
  * 🔓 Not required for authentication.
  * @type {string[]}
  */
-export const checkRoutesPrefix = "/check";
+export const checkRoutesPrefix = "/r";
 
 /**
  * 🌱 These prefix for API authentication routes.
