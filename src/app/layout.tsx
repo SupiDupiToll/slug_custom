@@ -1,6 +1,5 @@
 // keine 'use client' Direktive hier
 import type { Metadata, Viewport } from "next";
-import React, { useState, useEffect, useCallback } from "react";
 
 // Styles:
 import "@/styles/globals.css";

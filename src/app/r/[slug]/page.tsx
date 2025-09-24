@@ -1,6 +1,6 @@
 
 
-import { redirect } from "next/navigation";
+// ...existing code...
 "use client";
 import RickrollWithConsent from "@/components/RickrollWithConsent";
 import React from "react";
