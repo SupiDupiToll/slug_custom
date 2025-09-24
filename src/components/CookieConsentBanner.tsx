@@ -10,7 +10,11 @@ export default function CookieConsentBanner({ onAccept, onDecline }: { onAccept:
 
   useEffect(() => {
     const consent = localStorage.getItem("cookie_consent");
-    if (!consent) setVisible(true);
+    if (!consent) {
+      setVisible(true);
+    } else {
+      setVisible(false);
+    }
   }, []);
 
   const handleAccept = () => {
