@@ -1,4 +1,6 @@
+// keine 'use client' Direktive hier
 import type { Metadata, Viewport } from "next";
+import React, { useState, useEffect, useCallback } from "react";
 
 // Styles:
 import "@/styles/globals.css";
@@ -11,6 +13,7 @@ import { ToasterComponent } from "@/components/providers/toaster";
 // External scripts:
 
 import Script from "next/script";
+import AppClient from "@/components/AppClient";
 import { Analytics } from "@vercel/analytics/next";
 
 // Layout:
@@ -100,6 +103,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // Client-Logik ausgelagert in AppClient
+
   return (
     <html lang="en">
       <body
@@ -119,11 +124,7 @@ export default function RootLayout({
           {children}
           <ToasterComponent />
         </ThemeProvider>
-        <Script
-          async
-          src="https://cloud.umami.is/script.js"
-          data-website-id="79fcf8e3-6782-4a88-b1b6-f048875b7df1"
-        />
+        <AppClient />
         <Analytics />
       </body>
     </html>
