@@ -44,7 +44,7 @@ export default function CookieConsentBanner({ onAccept, onDecline }: { onAccept:
           </span>
         <div className="flex gap-4 justify-center items-center">
           <button
-            className="px-7 py-2 rounded bg-primary-600 text-white text-base font-bold hover:bg-primary-700 transition shadow border-2 border-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-400"
+            className="px-7 py-2 rounded bg-neutral-900 text-white text-base font-bold hover:bg-neutral-800 transition shadow border-2 border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-400"
             style={{ boxShadow: "0 2px 8px 0 rgba(0,0,0,0.10)" }}
             onClick={handleAccept}
           >
