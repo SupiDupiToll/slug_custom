@@ -120,11 +120,6 @@ export default function RootLayout({
           <ToasterComponent />
         </ThemeProvider>
         <Analytics />
-        <Script
-          async
-          src="https://umami.pheralb.dev/script.js"
-          data-website-id="2495697e-383c-418c-ac85-d8be8837b686"
-        />
       </body>
     </html>
   );
