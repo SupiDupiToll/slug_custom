@@ -119,6 +119,11 @@ export default function RootLayout({
           {children}
           <ToasterComponent />
         </ThemeProvider>
+        <Script
+          async
+          src="https://cloud.umami.is/script.js"
+          data-website-id="79fcf8e3-6782-4a88-b1b6-f048875b7df1"
+        />
         <Analytics />
       </body>
     </html>
