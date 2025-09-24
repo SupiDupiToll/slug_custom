@@ -1,13 +1,13 @@
 import Footer from "@/components/layout/footer";
-import { buttonVariants } from "@/ui/button";
-import ExternalLink from "@/ui/external-link";
-import { ArrowUpRight, HomeIcon } from "lucide-react";
+// Removed unused imports
+// import { buttonVariants } from "@/ui/button";
+// import ExternalLink from "@/ui/external-link";
+// import { ArrowUpRight, HomeIcon } from "lucide-react";
 import { headers } from "next/headers";
 import Link from "next/link";
 
 const NotFoundPage = async () => {
   const headersList = headers();
-  const domain = headersList.get("host");
   return (
     <>
       <div className="mx-auto max-w-screen-xl px-4 py-8 lg:py-16">

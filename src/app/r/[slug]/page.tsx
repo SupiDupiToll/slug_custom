@@ -4,7 +4,7 @@
 "use client";
 import RickrollWithConsent from "@/components/RickrollWithConsent";
 import React from "react";
-import { useSearchParams } from "next/navigation";
+// ...existing code...
 
 // RickrollWithConsent übernimmt Banner, Timer und Redirect
 

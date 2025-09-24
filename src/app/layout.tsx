@@ -11,7 +11,7 @@ import { ToasterComponent } from "@/components/providers/toaster";
 
 // External scripts:
 
-import Script from "next/script";
+// ...existing code...
 import AppClient from "@/components/AppClient";
 import { Analytics } from "@vercel/analytics/next";
 
