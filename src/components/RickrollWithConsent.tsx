@@ -4,7 +4,7 @@ import CookieConsentBanner from "@/components/CookieConsentBanner";
 function TimeBar({ duration, onComplete }: { duration: number; onComplete: () => void }) {
   const [progress, setProgress] = useState(0);
   useEffect(() => {
-    let start = Date.now();
+    const start = Date.now();
     let raf: number;
     function tick() {
       const elapsed = Date.now() - start;

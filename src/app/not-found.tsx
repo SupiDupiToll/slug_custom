@@ -4,10 +4,10 @@ import Footer from "@/components/layout/footer";
 // import ExternalLink from "@/ui/external-link";
 // import { ArrowUpRight, HomeIcon } from "lucide-react";
 import { headers } from "next/headers";
-import Link from "next/link";
+// ...existing code...
 
 const NotFoundPage = async () => {
-  const headersList = headers();
+// ...existing code...
   return (
     <>
       <div className="mx-auto max-w-screen-xl px-4 py-8 lg:py-16">

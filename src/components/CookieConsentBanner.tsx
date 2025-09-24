@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 
 const UMAMI_PRIVACY_URL = "https://umami.is/privacy";
-const LOCAL_PRIVACY_URL = "/datenschutz"; // Passe ggf. an
+// ...existing code...
 const VERCEL_PRIVACY_URL = "https://vercel.com/legal/privacy-policy";
 
 export default function CookieConsentBanner({ onAccept, onDecline }: { onAccept: () => void; onDecline?: () => void }) {
   const [visible, setVisible] = useState(false);
-  const [decision, setDecision] = useState<string | null>(null);
+// ...existing code...
 
   useEffect(() => {
     const consent = localStorage.getItem("cookie_consent");
@@ -15,14 +15,14 @@ export default function CookieConsentBanner({ onAccept, onDecline }: { onAccept:
 
   const handleAccept = () => {
     localStorage.setItem("cookie_consent", "accepted");
-    setDecision("accepted");
+  // ...existing code...
     setVisible(false);
     onAccept();
   };
 
   const handleDecline = () => {
     localStorage.setItem("cookie_consent", "declined");
-    setDecision("declined");
+  // ...existing code...
     setVisible(false);
     if (onDecline) onDecline();
   };
