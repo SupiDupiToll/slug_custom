@@ -38,7 +38,7 @@ export default function CookieConsentBanner({ onAccept, onDecline }: { onAccept:
       <div className="bg-white dark:bg-neutral-900 rounded-xl shadow-lg p-6 max-w-md w-full text-center border border-neutral-200 dark:border-neutral-800">
         <h2 className="text-lg font-semibold mb-2">Magst du Cookies?</h2>
         <p className="mb-4 text-sm text-neutral-700 dark:text-neutral-300">
-          Diese Seite verwendet <b>Umami</b> und <b>Vercel Analytics</b>, um anonyme Nutzungsstatistiken zu erfassen. Erst nach deiner Zustimmung wird das Tracking aktiviert. Mehr Infos findest du in der <a href={UMAMI_PRIVACY_URL} target="_blank" rel="noopener noreferrer" className="underline">Umami Datenschutzerklärung</a> und der <a href={VERCEL_PRIVACY_URL} target="_blank" rel="noopener noreferrer" className="underline">Vercel Datenschutzerklärung</a>.
+          Diese Seite verwendet <b>Umami</b> und <b>Vercel Analytics</b>, um Nutzungsstatistiken zu erfassen. Mehr Infos findest du in der <a href={UMAMI_PRIVACY_URL} target="_blank" rel="noopener noreferrer" className="underline">Umami Datenschutzerklärung</a> und der <a href={VERCEL_PRIVACY_URL} target="_blank" rel="noopener noreferrer" className="underline">Vercel Datenschutzerklärung</a>.
         </p>
         <span
             className="cursor-pointer text-neutral-500 text-sm underline hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
