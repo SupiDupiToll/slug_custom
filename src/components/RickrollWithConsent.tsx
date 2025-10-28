@@ -3,11 +3,11 @@ import CookieConsentBanner from "@/components/CookieConsentBanner";
 import { Spinner } from "@/ui/ui/spinner";
 
 
-function TimeBar({ onComplete }: { onComplete: () => void }) {
+function TimeBar({ onComplete, duration = 3000 }: { onComplete: () => void; duration?: number }) {
   useEffect(() => {
-    const timer = setTimeout(onComplete, 3000);
+    const timer = setTimeout(onComplete, duration);
     return () => clearTimeout(timer);
-  }, [onComplete]);
+  }, [onComplete, duration]);
 
   return (
     <div className="flex items-center gap-6">
