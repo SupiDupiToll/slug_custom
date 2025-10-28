@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
+import { Spinner } from "@/ui/ui/spinner";
 
-function TimeBar({ duration, onComplete }: { duration: number; onComplete: () => void }) {
+
+
+function TimeBar({ onComplete }: { onComplete: () => void }) {
   const [progress, setProgress] = useState(0);
+
   useEffect(() => {
+    const duration = 3000; // 3 Sekunden
     const start = Date.now();
     let raf: number;
+
     function tick() {
       const elapsed = Date.now() - start;
       const percent = Math.min(elapsed / duration, 1);
@@ -17,15 +23,14 @@ function TimeBar({ duration, onComplete }: { duration: number; onComplete: () =>
         onComplete();
       }
     }
+
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [duration, onComplete]);
+  }, [onComplete]);
+
   return (
-    <div className="w-64 h-2 bg-neutral-200 dark:bg-neutral-800 rounded-full overflow-hidden mt-4">
-      <div
-        className="h-full bg-blue-600 transition-all duration-100"
-        style={{ width: `${progress * 100}%` }}
-      />
+    <div className="flex items-center gap-6">
+      <Spinner className="size-8"  />
     </div>
   );
 }
@@ -52,7 +57,7 @@ export default function RickrollWithConsent({ url }: { url: string }) {
     setConsent(true);
     setShowBanner(false);
   };
-  // Ablehnen-Handler
+
   const handleDecline = () => {
     localStorage.setItem("cookie_consent", "declined");
     setConsent(false);

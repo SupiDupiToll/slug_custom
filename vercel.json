@@ -1,10 +1,6 @@
 {
   "redirects": [
     {
-      "source": "/git",
-      "destination": "https://github.com/"
-    },
-    {
       "source": "/dash",
       "destination": "/dashboard"
     }
