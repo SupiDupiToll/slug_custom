@@ -8,8 +8,8 @@ import { toast } from "sonner";
 export function SignOut() {
   const iconSize = 15;
 
-  const handleLogout = async () => {
-    await toast.promise(handleSignOut(), {
+  const handleLogout = () => {
+    toast.promise(handleSignOut(), {
       loading: "Signing out...",
       success: "Signed out.",
       error: "Failed to sign out. Please try again.",
