@@ -35,6 +35,12 @@ export const protectedRoutes = ["/dashboard", "/dashboard/settings"];
 export const checkRoutesPrefix = "/r";
 
 /**
+ * 🌱 Route prefix for password gate pages.
+ * @type {string}
+ */
+export const passwordGateRoutesPrefix = "/unlock";
+
+/**
  * 🌱 These prefix for API authentication routes.
  * ✍️ Routes that start with this prefix are used for API authentication purposes.
  * 🔓 Not required for authentication.

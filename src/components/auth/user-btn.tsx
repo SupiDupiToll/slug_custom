@@ -30,25 +30,34 @@ export default async function UserButton() {
       </Link>
     );
 
-  if (session?.user)
+  if (session?.user) {
+    const avatarSeed =
+      session.user.name ??
+      session.user.email ??
+      session.user.username ??
+      session.user.id ??
+      "User";
+
     return (
       <DropdownMenu>
-        <DropdownMenuTrigger
-          name={session.user.name ?? "User Menu"}
-          className={buttonVariants({
-            variant: "ghost",
-            size: "icon",
-          })}
-        >
-          {session.user.name && (
-            <Avatar size={22} name={session.user.name} variant="beam" />
-          )}
+        <DropdownMenuTrigger asChild>
+          <button
+            type="button"
+            name={session.user.name ?? "User Menu"}
+            aria-label="User menu"
+            className={buttonVariants({
+              variant: "ghost",
+              size: "icon",
+            })}
+          >
+            <Avatar size={22} name={avatarSeed} variant="beam" />
+          </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56" align="end" forceMount>
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
               <p className="text-sm font-medium leading-none">
-                {session.user.name}
+                {session.user.name ?? session.user.username ?? "User"}
               </p>
               <p className="text-xs leading-none text-neutral-400">
                 {session.user.email}
@@ -61,4 +70,7 @@ export default async function UserButton() {
         </DropdownMenuContent>
       </DropdownMenu>
     );
+  }
+
+  return null;
 }

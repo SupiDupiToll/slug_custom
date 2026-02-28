@@ -9,8 +9,9 @@ export function SignOut() {
   const iconSize = 15;
 
   const handleLogout = async () => {
-    toast.promise(handleSignOut, {
+    await toast.promise(handleSignOut(), {
       loading: "Signing out...",
+      success: "Signed out.",
       error: "Failed to sign out. Please try again.",
     });
   };

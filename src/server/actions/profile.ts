@@ -1,11 +1,11 @@
 "use server";
 
 import type { z } from "zod";
-import type { UpdateProfileSchema } from "@/server/schemas";
 
 import { auth, signOut } from "@/auth";
 import { db } from "@/server/db";
 import { revalidatePath } from "next/cache";
+import { UpdateProfileSchema } from "@/server/schemas";
 
 /**
  * Update Profile.
@@ -21,13 +21,18 @@ export const updateProfile = async (
     return null;
   }
 
+  const parsedValues = UpdateProfileSchema.safeParse(values);
+  if (!parsedValues.success) {
+    return null;
+  }
+
   // Create new link:
   const result = await db.user.update({
     where: {
       id: currentUser.user.id,
     },
     data: {
-      ...values,
+      ...parsedValues.data,
     },
   });
 
@@ -70,4 +75,4 @@ export const checkBlocked = async (userId: string) => {
     },
   });
   return result;
-}
+};

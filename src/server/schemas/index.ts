@@ -21,7 +21,20 @@ export const CreateLinkSchema = z.object({
     // not contain any blank spaces
     .regex(/^\S+$/, {
       message: "URL must not contain any blank spaces.",
-    }),
+    })
+    .refine(
+      (value) => {
+        try {
+          const parsed = new URL(value);
+          return parsed.protocol === "http:" || parsed.protocol === "https:";
+        } catch {
+          return false;
+        }
+      },
+      {
+        message: "Only http:// or https:// URLs are allowed.",
+      },
+    ),
   slug: z
     .string()
     .min(1, {
@@ -34,10 +47,13 @@ export const CreateLinkSchema = z.object({
     .regex(/^(?!.*&c$)/, {
       message: "Custom short link can't end with &c.",
     }),
-
   description: z
     .string()
     .max(100, { message: "The description must be less than 100 characters." }),
+  password: z
+    .string()
+    .max(72, { message: "Password must be 72 characters or less." })
+    .optional(),
 });
 
 export const EditLinkSchema = z.object({
@@ -45,13 +61,29 @@ export const EditLinkSchema = z.object({
   url: z
     .string()
     .min(1, { message: "URL is required." })
+    .url({
+      message: "Please enter a valid URL. Include http:// or https://",
+    })
     .regex(/^(?!.*(?:http|https):\/\/(?:slug|slugr)\.vercel\.app).*$/, {
       message: "You cannot redirect to the Slug url.",
     })
     // not contain any blank spaces
     .regex(/^\S+$/, {
       message: "URL must not contain any blank spaces.",
-    }),
+    })
+    .refine(
+      (value) => {
+        try {
+          const parsed = new URL(value);
+          return parsed.protocol === "http:" || parsed.protocol === "https:";
+        } catch {
+          return false;
+        }
+      },
+      {
+        message: "Only http:// or https:// URLs are allowed.",
+      },
+    ),
   slug: z
     .string()
     .min(1, {

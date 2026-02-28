@@ -9,16 +9,17 @@ datasource db {
 }
 
 model Links {
-    id          String       @id @default(cuid())
-    url         String
-    slug        String       @unique
-    description String?
-    createdAt   DateTime     @default(now())
-    createdBy   User?        @relation(fields: [creatorId], references: [id], onDelete: Cascade)
-    creatorId   String
-    clicks      Int          @default(0)
-    lastClicked DateTime?
-    tags        LinkTags[]   
+    id           String          @id @default(cuid())
+    url          String
+    slug         String          @unique
+    description  String?
+    passwordHash String?
+    createdAt    DateTime        @default(now())
+    createdBy    User?           @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+    creatorId    String
+    clicks       Int             @default(0)
+    lastClicked  DateTime?
+    tags         LinkTags[]
 
     @@index(slug)
     @@index([creatorId])
@@ -43,6 +44,16 @@ model LinkTags {
     tagId  String
 
     @@id([linkId, tagId])
+}
+
+model PasswordAttempt {
+    id        String   @id @default(cuid())
+    slug      String
+    ip        String
+    createdAt DateTime @default(now())
+
+    @@index([ip, createdAt])
+    @@index([slug, ip])
 }
 
 model Account {

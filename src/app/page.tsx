@@ -1,6 +1,6 @@
 import Footer from "@/components/layout/footer";
 import { GithubLogo } from "@/components/icons/logos";
-import { buttonVariants } from "@/ui/button";
+import { Button, buttonVariants } from "@/ui/button";
 import ExternalLink from "@/ui/external-link";
 import { TypographyH1, TypographyP } from "@/ui/typography";
 import { LinkIcon } from "lucide-react";
@@ -20,11 +20,11 @@ export default async function Home() {
           Homepage
         </TypographyH1>
         <TypographyP className="max-w-[75ch] text-sm duration-700 animate-in fade-in-5 slide-in-from-top-2 md:text-base [&:not(:first-child)]:mt-6">
-          Du bist auf der Homepage gelandet! Vergesse nicht den Teil hinter dem / :3
+          Du bist auf der Homepage gelandet! Vergesse nicht den Teil hinter dem
+          / :3
         </TypographyP>
-        <div className="mt-8 flex items-center justify-center duration-700 animate-in fade-in-30 md:space-x-3 space-x-2">
-        
-        </div>
+
+        <div className="mt-8 flex items-center justify-center space-x-2 duration-700 animate-in fade-in-30 md:space-x-3"></div>
       </section>
       <Footer className="fixed bottom-0 mt-4 py-4" />
     </main>

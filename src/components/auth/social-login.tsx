@@ -23,13 +23,17 @@ const SocialLogin = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [provider, setProvider] = useState<string | null>();
 
+  const safeCallbackUrl =
+    callbackUrl && callbackUrl.startsWith("/") && !callbackUrl.startsWith("//")
+      ? callbackUrl
+      : DEFAULT_LOGIN_REDIRECT_URL;
+
   const handleSocialLogin = async (provider: string) => {
     try {
       setLoading(true);
       setProvider(provider);
       await signIn(provider, {
-        // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-        callbackUrl: callbackUrl || DEFAULT_LOGIN_REDIRECT_URL,
+        callbackUrl: safeCallbackUrl,
       });
     } catch (error) {
       toast.error("An error occurred while trying to sign in");

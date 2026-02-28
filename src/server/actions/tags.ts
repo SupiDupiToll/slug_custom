@@ -1,11 +1,11 @@
 "use server";
 
 import type { z } from "zod";
-import type { CreateTagSchema } from "@/server/schemas";
 
 import { auth } from "@/auth";
 import { db } from "@/server/db";
 import { revalidatePath } from "next/cache";
+import { CreateTagSchema } from "@/server/schemas";
 
 /**
  * Create a tag.
@@ -21,11 +21,21 @@ export const createTag = async (values: z.infer<typeof CreateTagSchema>) => {
     return null;
   }
 
+  const userId = currentUser.user?.id;
+  if (!userId) {
+    return null;
+  }
+
+  const parsedValues = CreateTagSchema.safeParse(values);
+  if (!parsedValues.success) {
+    return null;
+  }
+
   const result = await db.tags.create({
     data: {
-      name: values.name,
-      color: values.color,
-      creatorId: currentUser.user?.id,
+      name: parsedValues.data.name,
+      color: parsedValues.data.color,
+      creatorId: userId,
     },
   });
 
@@ -45,6 +55,34 @@ export const insertTagToLink = async (linkId: string, tagId: string) => {
 
   if (!currentUser) {
     console.error("Not authenticated.");
+    return null;
+  }
+
+  const userId = currentUser.user?.id;
+  if (!userId) {
+    return null;
+  }
+
+  const ownedLink = await db.links.findFirst({
+    where: {
+      id: linkId,
+      creatorId: userId,
+    },
+    select: {
+      id: true,
+    },
+  });
+  const ownedTag = await db.tags.findFirst({
+    where: {
+      id: tagId,
+      creatorId: userId,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  if (!ownedLink || !ownedTag) {
     return null;
   }
 
@@ -73,9 +111,15 @@ export const removeTag = async (tagId: string) => {
     return null;
   }
 
-  await db.tags.delete({
+  const userId = currentUser.user?.id;
+  if (!userId) {
+    return null;
+  }
+
+  await db.tags.deleteMany({
     where: {
       id: tagId,
+      creatorId: userId,
     },
   });
 

@@ -1,11 +1,24 @@
 "use server";
 
 import type { z } from "zod";
-import type { CreateLinkSchema, EditLinkSchema } from "@/server/schemas";
 
+import bcrypt from "bcryptjs";
 import { auth } from "@/auth";
 import { db } from "@/server/db";
 import { revalidatePath } from "next/cache";
+import { CreateLinkSchema, EditLinkSchema } from "@/server/schemas";
+
+const CREATE_LINK_MAX_ATTEMPTS = 30;
+const CREATE_LINK_WINDOW_MINUTES = 60;
+
+const isSafeRedirectUrl = (value: string) => {
+  try {
+    const parsed = new URL(value);
+    return parsed.protocol === "http:" || parsed.protocol === "https:";
+  } catch {
+    return false;
+  }
+};
 
 /**
  * Get single link data.
@@ -21,9 +34,15 @@ export const getSingleLink = async (id: string) => {
     return null;
   }
 
-  const result = await db.links.findUnique({
+  const userId = currentUser.user?.id;
+  if (!userId) {
+    return null;
+  }
+
+  const result = await db.links.findFirst({
     where: {
       id,
+      creatorId: userId,
     },
   });
 
@@ -37,6 +56,12 @@ export const getSingleLink = async (id: string) => {
  * @type {string()}
  */
 export const checkIfSlugExist = async (slug: string) => {
+  const currentUser = await auth();
+
+  if (!currentUser) {
+    return true;
+  }
+
   const result = await db.links.findUnique({
     where: {
       slug: slug,
@@ -72,6 +97,11 @@ export const createLink = async (
     return { error: "Not authenticated. Please login again." };
   }
 
+  const userId = currentUser.user?.id;
+  if (!userId) {
+    return { error: "Not authenticated. Please login again." };
+  }
+
   // Kein Link-Limit mehr: Limit-Prüfung entfernt
 
   // If the user is blocked, dont allow to create a new link:
@@ -82,11 +112,49 @@ export const createLink = async (
     };
   }
 
+  const parsedValues = CreateLinkSchema.safeParse(values);
+  if (!parsedValues.success) {
+    return {
+      error: parsedValues.error.issues[0]?.message ?? "Invalid input.",
+    };
+  }
+
+  if (!isSafeRedirectUrl(parsedValues.data.url)) {
+    return {
+      error: "Only http:// or https:// URLs are allowed.",
+    };
+  }
+
+  const windowStart = new Date(
+    Date.now() - CREATE_LINK_WINDOW_MINUTES * 60 * 1000,
+  );
+  const recentCreations = await db.links.count({
+    where: {
+      creatorId: userId,
+      createdAt: {
+        gte: windowStart,
+      },
+    },
+  });
+
+  if (recentCreations >= CREATE_LINK_MAX_ATTEMPTS) {
+    return {
+      limit: true,
+      error: "Rate limit reached. Please try again later.",
+    };
+  }
+
+  const password = parsedValues.data.password?.trim();
+  const passwordHash = password ? await bcrypt.hash(password, 10) : null;
+
   // Create new link:
   const result = await db.links.create({
     data: {
-      ...values,
-      creatorId: currentUser.user?.id,
+      url: parsedValues.data.url,
+      slug: parsedValues.data.slug,
+      description: parsedValues.data.description,
+      passwordHash,
+      creatorId: userId,
     },
   });
 
@@ -101,7 +169,9 @@ export const createLink = async (
  * Authentication required.
  * @type {z.infer<typeof EditLinkSchema>}
  */
-export const updateLink = async (values: z.infer<typeof EditLinkSchema> & { tags?: string[] }) => {
+export const updateLink = async (
+  values: z.infer<typeof EditLinkSchema> & { tags?: string[] },
+) => {
   const currentUser = await auth();
 
   if (!currentUser) {
@@ -109,30 +179,77 @@ export const updateLink = async (values: z.infer<typeof EditLinkSchema> & { tags
     return null;
   }
 
-  // Tags-Relation korrekt setzen, falls vorhanden
+  const userId = currentUser.user?.id;
+  if (!userId) {
+    return null;
+  }
 
-  const { tags, id, ...rest } = values;
-  // id wird nicht benötigt, daher entfernen
-  type UpdateLinkData = Omit<typeof rest, 'id'> & {
-    creatorId: string | undefined;
+  const parsedValues = EditLinkSchema.safeParse(values);
+  if (!parsedValues.success) {
+    return {
+      error: parsedValues.error.issues[0]?.message ?? "Invalid input.",
+    };
+  }
+
+  if (!isSafeRedirectUrl(parsedValues.data.url)) {
+    return {
+      error: "Only http:// or https:// URLs are allowed.",
+    };
+  }
+
+  const { tags } = values;
+  type UpdateLinkData = {
+    url: string;
+    slug: string;
+    description: string;
     tags?: {
       deleteMany: Record<string, never>;
       create: { tag: { connect: { id: string } } }[];
     };
   };
   const data: UpdateLinkData = {
-    ...rest,
-    creatorId: currentUser.user?.id,
+    url: parsedValues.data.url,
+    slug: parsedValues.data.slug,
+    description: parsedValues.data.description,
   };
   if (tags) {
+    const allowedTags = await db.tags.findMany({
+      where: {
+        creatorId: userId,
+        id: {
+          in: tags,
+        },
+      },
+      select: {
+        id: true,
+      },
+    });
     data.tags = {
       deleteMany: {},
-      create: tags.map((tagId: string) => ({ tag: { connect: { id: tagId } } })),
+      create: allowedTags.map((tag) => ({ tag: { connect: { id: tag.id } } })),
+    };
+  }
+
+  const ownedLink = await db.links.findFirst({
+    where: {
+      id: parsedValues.data.id,
+      creatorId: userId,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  if (!ownedLink) {
+    return {
+      error: "Not authorized.",
     };
   }
 
   await db.links.update({
-    where: { id: values.id },
+    where: {
+      id: ownedLink.id,
+    },
     data,
   });
 
@@ -155,9 +272,14 @@ export const deleteLink = async (id: string) => {
     return null;
   }
 
+  const userId = currentUser.user?.id;
+  if (!userId) {
+    return null;
+  }
+
   // Update link:
-  const result = await db.links.delete({
-    where: { id: id, creatorId: currentUser.user?.id },
+  const result = await db.links.deleteMany({
+    where: { id: id, creatorId: userId },
   });
 
   revalidatePath("/dashboard");
@@ -178,9 +300,14 @@ export const downloadAllLinks = async () => {
     return null;
   }
 
+  const userId = currentUser.user?.id;
+  if (!userId) {
+    return null;
+  }
+
   const result = await db.links.findMany({
     where: {
-      creatorId: currentUser.user?.id,
+      creatorId: userId,
     },
   });
 

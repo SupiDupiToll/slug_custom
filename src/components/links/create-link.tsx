@@ -56,6 +56,7 @@ export function CreateLink(props: CreateLinkProps) {
       url: "",
       slug: props.slug ?? "",
       description: "",
+      password: "",
     },
   });
 
@@ -90,7 +91,7 @@ export function CreateLink(props: CreateLinkProps) {
     try {
       setLoading(true);
 
-      const slugExists = await checkIfSlugExist(values.slug);
+      const slugExists = await checkIfSlugExist(values.slug ?? "");
 
       if (slugExists) {
         toast.error(
@@ -214,6 +215,25 @@ export function CreateLink(props: CreateLinkProps) {
                       <Textarea
                         {...field}
                         placeholder="Enter a description"
+                        disabled={loading}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password (optional):</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        type="password"
+                        placeholder="Set a password to protect this link"
+                        autoComplete="new-password"
                         disabled={loading}
                       />
                     </FormControl>

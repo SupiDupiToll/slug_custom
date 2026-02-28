@@ -42,7 +42,9 @@ yarn-error.log*
 *.tsbuildinfo
 
 # prisma & dump files
-migrations
+/migrations
+!/prisma/migrations/
+!/prisma/migrations/**
 dev.db
 dev.db-journal
 mysql2sqlite

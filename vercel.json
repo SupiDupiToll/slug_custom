@@ -3,6 +3,14 @@
     {
       "source": "/dash",
       "destination": "/dashboard"
+    },
+    {
+      "source": "/dahsboard",
+      "destination": "/dashboard"
+    },
+    {
+      "source": "/dahsboard/settings",
+      "destination": "/dashboard/settings"
     }
   ]
 }

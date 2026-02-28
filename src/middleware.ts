@@ -6,13 +6,9 @@ import { NextResponse } from "next/server";
 import {
   DEFAULT_LOGIN_REDIRECT_URL,
   apiAuthPrefix,
-  checkRoutesPrefix,
   authRoutes,
   protectedRoutes,
-  publicRoutes,
 } from "./routes";
-
-import { urlFromServer } from "./server/middleware/redirect";
 
 const { auth } = NextAuth(authConfig);
 
@@ -22,16 +18,14 @@ export default auth(async (req) => {
   const isLoggedIn = !!req.auth;
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-  const isCheckRoute = nextUrl.pathname.startsWith(checkRoutesPrefix);
   const isProtectedRoute = protectedRoutes.includes(nextUrl.pathname);
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
   const slugRoute = req.nextUrl.pathname.split("/").pop();
 
   // ⚙️ Is Api Route:
   if (isApiAuthRoute) {
-    return;
+    return NextResponse.next();
   }
 
   // ⚙️ Is Auth Route. First, check is authenticated:
@@ -41,7 +35,7 @@ export default auth(async (req) => {
         new URL(DEFAULT_LOGIN_REDIRECT_URL, nextUrl),
       );
     }
-    return;
+    return NextResponse.next();
   }
 
   // ⚙️ If Slug contains ``c``, redirect to /check/:slug:
@@ -63,24 +57,9 @@ export default auth(async (req) => {
     );
   }
 
-  // ⚙️ Redirect using slug:
-  // If not public route and not protected route:
-  if (!isPublicRoute && !isProtectedRoute && !isCheckRoute) {
-    const getDataApi = await urlFromServer(slugRoute!);
-
-    if (getDataApi.redirect404) {
-      console.log("🚧 Error - Redirect 404: ", slugRoute);
-    }
-
-    if (getDataApi.error) {
-      return NextResponse.json({ error: getDataApi.message }, { status: 500 });
-    }
-
-    if (getDataApi.url) {
-      return NextResponse.redirect(new URL(getDataApi.url).toString());
-    }
-  }
-  return;
+  // Slug resolving/redirect logic runs in app/[slug]/page.tsx (Node runtime),
+  // not in middleware (Edge runtime), to avoid Prisma-in-Edge crashes.
+  return NextResponse.next();
 });
 
 export const config = {

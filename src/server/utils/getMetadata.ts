@@ -10,9 +10,58 @@ interface MetadataResponse {
   keywords: string;
 }
 
+const isBlockedHost = (hostname: string) => {
+  const host = hostname.toLowerCase();
+
+  if (host === "localhost" || host === "127.0.0.1" || host === "::1") {
+    return true;
+  }
+
+  if (
+    host.startsWith("10.") ||
+    host.startsWith("192.168.") ||
+    host.startsWith("169.254.") ||
+    host.startsWith("127.")
+  ) {
+    return true;
+  }
+
+  if (/^172\.(1[6-9]|2\d|3[0-1])\./.test(host)) {
+    return true;
+  }
+
+  if (host.endsWith(".local")) {
+    return true;
+  }
+
+  return false;
+};
+
 export const getMetadata = async (url: string) => {
   try {
-    const res = await fetch(url).then((result) => result.text());
+    const parsedUrl = new URL(url);
+    if (!["http:", "https:"].includes(parsedUrl.protocol)) {
+      return;
+    }
+
+    if (isBlockedHost(parsedUrl.hostname)) {
+      return;
+    }
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+    const response = await fetch(parsedUrl.toString(), {
+      signal: controller.signal,
+      redirect: "error",
+    });
+    clearTimeout(timeoutId);
+
+    const contentType = response.headers.get("content-type") ?? "";
+    if (!contentType.includes("text/html")) {
+      return;
+    }
+
+    const res = await response.text();
     const $ = load(res);
 
     const title =

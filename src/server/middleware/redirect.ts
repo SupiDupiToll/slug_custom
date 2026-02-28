@@ -10,10 +10,25 @@ export interface urlFromServerResult {
   redirect404?: boolean;
   url?: string;
   rateLimited?: boolean;
+  requiresPassword?: boolean;
 }
+
+interface urlFromServerOptions {
+  skipPasswordCheck?: boolean;
+}
+
+const isSafeRedirectUrl = (value: string) => {
+  try {
+    const parsed = new URL(value);
+    return parsed.protocol === "http:" || parsed.protocol === "https:";
+  } catch {
+    return false;
+  }
+};
 
 export const urlFromServer = async (
   slug: string,
+  options: urlFromServerOptions = {},
 ): Promise<urlFromServerResult> => {
   try {
     // Get link from server:s
@@ -37,6 +52,23 @@ export const urlFromServer = async (
       return {
         error: false,
         message: "🚧 Error (urlFromServer): User blocked.",
+        redirect404: true,
+      };
+    }
+
+    if (getLinkFromServer.passwordHash && !options.skipPasswordCheck) {
+      return {
+        error: false,
+        message: "Password required.",
+        createdBy: getLinkFromServer.creatorId,
+        requiresPassword: true,
+      };
+    }
+
+    if (!isSafeRedirectUrl(getLinkFromServer.url)) {
+      return {
+        error: false,
+        message: "Invalid redirect URL.",
         redirect404: true,
       };
     }
