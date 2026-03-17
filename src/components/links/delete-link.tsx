@@ -23,7 +23,7 @@ import {
 } from "@/ui/dialog";
 import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
-import { LoaderIcon, TrashIcon } from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 import {
   Form,
   FormControl,
@@ -105,9 +105,13 @@ const DeleteLink = ({ link, trigger }: DeleteLinkProps) => {
               </DialogClose>
               <Button disabled={loading} type="submit" variant="destructive">
                 {loading ? (
-                  <LoaderIcon size={16} className="animate-spin" />
+                  <MaterialIcon
+                    name="progress_activity"
+                    size={16}
+                    className="animate-spin"
+                  />
                 ) : (
-                  <TrashIcon size={16} />
+                  <MaterialIcon name="delete" size={16} />
                 )}
                 <span>{loading ? "Deleting..." : "Delete"}</span>
               </Button>

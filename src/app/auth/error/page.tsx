@@ -11,7 +11,7 @@ const AuthErrorPage = () => {
       <CardContent>
         <Link
           href="/auth"
-          className="opacity-75 transition-opacity duration-100 hover:text-black hover:opacity-100 dark:hover:text-white"
+          className="hover:text-primary opacity-75 transition-opacity duration-100 hover:opacity-100"
         >
           <span>Back to login</span>
         </Link>

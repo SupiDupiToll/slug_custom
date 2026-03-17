@@ -3,7 +3,7 @@
 import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
 import { toast } from "sonner";
 import { DropdownMenuItem } from "@/ui/dropdown-menu";
-import { ClipboardIcon } from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 
 interface CopyLinkProps {
   slug: string;
@@ -33,7 +33,7 @@ const CopyLinkDropdown = (props: CopyLinkProps) => {
 
   return (
     <DropdownMenuItem onClick={handleCopy(`${url}/${props.slug}`)}>
-      <ClipboardIcon size={15} />
+      <MaterialIcon name="content_copy" size={15} />
       <span>Copy to clipboard</span>
     </DropdownMenuItem>
   );

@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import SettingsCard from "./card";
-import { AlertTriangleIcon, LoaderIcon, SaveIcon } from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 import type { z } from "zod";
 import { UpdateProfileSchema } from "@/server/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -82,7 +82,7 @@ const UpdateNameAvatar = (props: UpdateNameAvatarProps) => {
                   <Input placeholder="Email" {...field} disabled />
                 </FormControl>
                 <FormDescription className="flex items-center gap-2 pl-1">
-                  <AlertTriangleIcon size={14} />
+                  <MaterialIcon name="info" size={14} />
                   <span>Email address is managed by your OAuth provider.</span>
                 </FormDescription>
                 <FormMessage />
@@ -95,9 +95,13 @@ const UpdateNameAvatar = (props: UpdateNameAvatarProps) => {
               disabled={loading || hookForm.getValues().name === props.name}
             >
               {loading ? (
-                <LoaderIcon size={16} className="animate-spin" />
+                <MaterialIcon
+                  name="progress_activity"
+                  size={16}
+                  className="animate-spin"
+                />
               ) : (
-                <SaveIcon size={16} />
+                <MaterialIcon name="save" size={16} />
               )}
               <span>{loading ? "Saving..." : "Save"}</span>
             </Button>

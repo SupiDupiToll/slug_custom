@@ -1,32 +1,42 @@
 import Footer from "@/components/layout/footer";
-import { GithubLogo } from "@/components/icons/logos";
-import { Button, buttonVariants } from "@/ui/button";
-import ExternalLink from "@/ui/external-link";
-import { TypographyH1, TypographyP } from "@/ui/typography";
-import { LinkIcon } from "lucide-react";
-
 import Link from "next/link";
-import { auth } from "@/auth";
 
 export default async function Home() {
   return (
-    <main className="relative h-[calc(100vh-4rem)]">
-      <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px] dark:bg-neutral-900"></div>
-      <section
-        id="hero"
-        className="flex flex-col items-center px-6 pt-16 text-center md:pt-24 lg:pt-32"
-      >
-        <TypographyH1 className="max-w-[75ch] duration-500 animate-in fade-in-5 slide-in-from-bottom-2">
-          Homepage
-        </TypographyH1>
-        <TypographyP className="max-w-[75ch] text-sm duration-700 animate-in fade-in-5 slide-in-from-top-2 md:text-base [&:not(:first-child)]:mt-6">
-          Du bist auf der Homepage gelandet! Vergesse nicht den Teil hinter dem
-          / :3
-        </TypographyP>
+    <main className="bg-background-dark relative overflow-hidden pt-20">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute right-0 top-0 -mr-32 -mt-32 h-64 w-64 rounded-full bg-white/20"></div>
+        <div className="absolute bottom-0 left-0 -mb-24 -ml-24 h-48 w-48 rounded-full bg-white/10"></div>
+      </div>
 
-        <div className="mt-8 flex items-center justify-center space-x-2 duration-700 animate-in fade-in-30 md:space-x-3"></div>
+      <section className="py-24 lg:py-40">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+          <div className="bg-primary text-background-dark relative overflow-hidden rounded-xl p-10 md:p-20">
+            <div className="absolute right-0 top-0 -mr-32 -mt-32 h-64 w-64 rounded-full bg-white/20"></div>
+            <div className="absolute bottom-0 left-0 -mb-24 -ml-24 h-48 w-48 rounded-full bg-white/10"></div>
+            <div className="relative z-10">
+              <span className="mb-4 block text-sm font-bold uppercase tracking-widest">
+                Start
+              </span>
+              <h1 className="font-display text-5xl font-black leading-[1.1] tracking-tight md:text-7xl lg:text-8xl">
+                Toller <span className="italic opacity-60">Link-Shortener</span>{" "}
+                jaja
+              </h1>
+
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <Link
+                  href="/dashboard"
+                  className="bg-background-dark text-primary inline-flex h-14 items-center justify-center rounded-full px-8 text-lg font-bold transition-all hover:shadow-lg"
+                >
+                  Dashboard
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
-      <Footer className="fixed bottom-0 mt-4 py-4" />
+
+      <Footer className="py-6" />
     </main>
   );
 }

@@ -2,7 +2,7 @@
 
 import { handleSignOut } from "@/server/actions/auth";
 import { DropdownMenuItem } from "@/ui/dropdown-menu";
-import { LogOutIcon } from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 import { toast } from "sonner";
 
 export function SignOut() {
@@ -18,7 +18,7 @@ export function SignOut() {
 
   return (
     <DropdownMenuItem onClick={handleLogout}>
-      <LogOutIcon size={iconSize} />
+      <MaterialIcon name="logout" size={iconSize} />
       <span>Log Out</span>
     </DropdownMenuItem>
   );

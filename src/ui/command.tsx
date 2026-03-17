@@ -14,7 +14,7 @@ const Command = React.forwardRef<
   <CommandPrimitive
     ref={ref}
     className={cn(
-      "flex h-full w-full flex-col overflow-hidden rounded-md bg-neutral-100 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-50",
+      "flex h-full w-full flex-col overflow-hidden rounded-xl bg-slate-900/40 text-slate-100",
       className,
     )}
     {...props}
@@ -28,7 +28,7 @@ const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
   return (
     <Dialog {...props}>
       <DialogContent className="overflow-hidden p-0">
-        <Command className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-neutral-500 dark:[&_[cmdk-group-heading]]:text-neutral-400 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-[18px] [&_[cmdk-input-wrapper]_svg]:w-[18px] [&_[cmdk-input]]:h-14 [&_[cmdk-item]]:px-3 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-[18px] [&_[cmdk-item]_svg]:w-[18px]">
+        <Command className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-slate-500 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-[18px] [&_[cmdk-input-wrapper]_svg]:w-[18px] [&_[cmdk-input]]:h-14 [&_[cmdk-item]]:px-3 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-[18px] [&_[cmdk-item]_svg]:w-[18px]">
           {children}
         </Command>
       </DialogContent>
@@ -44,7 +44,7 @@ const CommandInput = React.forwardRef<
     <CommandPrimitive.Input
       ref={ref}
       className={cn(
-        "text-md flex h-12 w-full rounded-md bg-transparent py-4 outline-none placeholder:text-neutral-500 disabled:cursor-not-allowed disabled:opacity-50 dark:placeholder:text-neutral-400",
+        "text-md flex h-12 w-full rounded-md bg-transparent py-4 outline-none placeholder:text-slate-500 disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
       {...props}
@@ -87,7 +87,7 @@ const CommandGroup = React.forwardRef<
   <CommandPrimitive.Group
     ref={ref}
     className={cn(
-      "overflow-hidden p-1 text-neutral-950 dark:text-neutral-50 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-neutral-500 dark:[&_[cmdk-group-heading]]:text-neutral-400",
+      "overflow-hidden p-1 text-slate-100 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-slate-500",
       className,
     )}
     {...props}
@@ -102,7 +102,7 @@ const CommandSeparator = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <CommandPrimitive.Separator
     ref={ref}
-    className={cn("-mx-1 h-px bg-neutral-200 dark:bg-neutral-800", className)}
+    className={cn("-mx-1 h-px bg-slate-800/50", className)}
     {...props}
   />
 ));
@@ -115,7 +115,7 @@ const CommandItem = React.forwardRef<
   <CommandPrimitive.Item
     ref={ref}
     className={cn(
-      "flex items-center space-x-3 rounded-md px-2 py-1.5 text-sm text-neutral-500 outline-none aria-selected:bg-neutral-200 aria-selected:text-neutral-900 dark:text-neutral-500 dark:hover:bg-neutral-900 dark:hover:text-neutral-50 dark:aria-selected:bg-neutral-800 dark:aria-selected:text-white",
+      "flex items-center space-x-3 rounded-md px-2 py-1.5 text-sm text-slate-400 outline-none hover:text-slate-100 aria-selected:bg-slate-800/70 aria-selected:text-slate-100",
       className,
     )}
     {...props}
@@ -131,7 +131,7 @@ const CommandShortcut = ({
   return (
     <span
       className={cn(
-        "ml-auto text-xs tracking-widest text-neutral-500 dark:text-neutral-400",
+        "ml-auto text-xs tracking-widest text-slate-500",
         className,
       )}
       {...props}

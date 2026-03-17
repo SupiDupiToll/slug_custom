@@ -6,7 +6,7 @@ import {
   TooltipTrigger,
 } from "@/ui/tooltip";
 import { cn } from "@/utils";
-import { PackageIcon, TriangleAlertIcon } from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 
 interface LinksLimitProps {
   userLinks: number;
@@ -34,9 +34,9 @@ const LinksLimit = ({ userLinks, maxLinks }: LinksLimitProps) => {
               )}
             >
               {max ? (
-                <TriangleAlertIcon size={14} />
+                <MaterialIcon name="warning" size={14} />
               ) : (
-                <PackageIcon size={14} />
+                <MaterialIcon name="inventory_2" size={14} />
               )}
               <span>
                 {userLinks < 10 ? `0${userLinks}` : userLinks}

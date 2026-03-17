@@ -1,13 +1,7 @@
 import type { LinkTags, Links, Tags } from "@prisma/client";
 
 import { formatDate } from "@/utils/formatDate";
-import {
-  ChevronDownIcon,
-  CopyIcon,
-  QrCodeIcon,
-  SettingsIcon,
-  TrashIcon,
-} from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 
 import {
   Collapsible,
@@ -42,35 +36,35 @@ const CardLink = ({ linkInfo, linkTags, tagsInfo }: CardLinkProps) => {
   );
 
   return (
-    <div className="flex w-full flex-col rounded-md border border-neutral-200 p-3 shadow-sm dark:border-neutral-800">
+    <div className="border-primary/10 flex w-full flex-col rounded-xl border bg-slate-900/40 p-4 shadow-sm">
       <div className="mb-1 flex w-full items-center justify-between space-x-2">
         <ExternalLink
           href={`https://go.sdtoll.de/${linkInfo.slug}`}
           className="block  space-x-[1px] overflow-hidden truncate font-medium transition-opacity duration-75 hover:opacity-80"
         >
-          <span className="text-sm opacity-40">go.sdtoll.de/</span>
+          <span className="text-sm text-slate-500">go.sdtoll.de/</span>
           <span>{linkInfo.slug}</span>
         </ExternalLink>
         <div className="flex items-center space-x-3">
           <ShowClicks
             numberOfClicks={linkInfo.clicks}
             lastDate={linkInfo.lastClicked}
-            className="hidden border-r border-neutral-200 pr-2 dark:border-neutral-800 md:flex"
+            className="hidden border-r border-slate-800/60 pr-2 md:flex"
           />
-          {/* 
+          {/*
             Radix Dialog + DropdownMenu bug 🥺
             https://github.com/radix-ui/primitives/issues/1836
           */}
           <Dialog>
             <DropdownMenu>
               <DropdownMenuTrigger className="transition-opacity hover:opacity-75">
-                <CopyIcon size={15} />
+                <MaterialIcon name="content_copy" size={15} />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <CopyLinkDropdown slug={linkInfo.slug} />
                 <DialogTrigger asChild>
                   <DropdownMenuItem>
-                    <QrCodeIcon size={15} />
+                    <MaterialIcon name="qr_code_2" size={15} />
                     <span>Copy QR Code</span>
                   </DropdownMenuItem>
                 </DialogTrigger>
@@ -81,7 +75,7 @@ const CardLink = ({ linkInfo, linkTags, tagsInfo }: CardLinkProps) => {
           <EditLink
             trigger={
               <button className="transition-opacity hover:opacity-75">
-                <SettingsIcon size={16} />
+                <MaterialIcon name="settings" size={16} />
               </button>
             }
             link={linkInfo}
@@ -92,20 +86,20 @@ const CardLink = ({ linkInfo, linkTags, tagsInfo }: CardLinkProps) => {
             link={linkInfo}
             trigger={
               <button className="transition-opacity hover:opacity-75">
-                <TrashIcon size={16} />
+                <MaterialIcon name="delete" size={16} />
               </button>
             }
           />
         </div>
       </div>
       <p
-        className="mb-2 truncate select-all font-mono text-sm text-neutral-500 dark:text-neutral-400"
+        className="mb-2 select-all truncate font-mono text-sm text-slate-500"
         title={linkInfo.url}
       >
         {linkInfo.url}
       </p>
       <Collapsible>
-        <div className="flex items-center justify-between font-mono text-xs font-medium text-neutral-600 dark:text-neutral-400 md:space-x-2">
+        <div className="flex items-center justify-between font-mono text-xs font-medium text-slate-500 md:space-x-2">
           <div className="flex max-w-[75%] items-center space-x-2">
             {linkTags.length > 0 && (
               <div className="flex cursor-default items-center space-x-1">
@@ -115,7 +109,7 @@ const CardLink = ({ linkInfo, linkTags, tagsInfo }: CardLinkProps) => {
                     <span
                       key={tag.tagId}
                       className={cn(
-                        "rounded-md border border-neutral-200 px-2 py-[0.5px] font-mono text-xs  dark:border-neutral-800",
+                        "rounded-full border border-slate-800/60 bg-slate-800 px-2 py-[0.5px] font-mono text-xs text-slate-200",
                       )}
                     >
                       {tagInfo?.name}
@@ -130,22 +124,22 @@ const CardLink = ({ linkInfo, linkTags, tagsInfo }: CardLinkProps) => {
             >
               {linkInfo.description}
             </p>
-            <CollapsibleTrigger className="flex items-center transition-colors hover:text-neutral-900 dark:hover:text-white md:hidden">
-              <ChevronDownIcon size={14} className="mr-2" />
+            <CollapsibleTrigger className="flex items-center transition-colors hover:text-slate-100 md:hidden">
+              <MaterialIcon name="expand_more" size={14} className="mr-2" />
               <span>Info</span>
             </CollapsibleTrigger>
           </div>
           <p>{formatDate(linkInfo.createdAt)}</p>
         </div>
         <CollapsibleContent className="flex flex-col">
-          <div className="my-2 p-2 shadow-sm">
+          <div className="my-2 rounded-lg border border-slate-800/50 p-2 shadow-sm">
             <ShowClicks
               numberOfClicks={linkInfo.clicks}
               lastDate={linkInfo.lastClicked}
             />
           </div>
           {linkInfo.description && (
-            <div className="p-2 shadow-sm">
+            <div className="rounded-lg border border-slate-800/50 p-2 shadow-sm">
               <p
                 className="text-pretty text-sm"
                 title={linkInfo.description ?? ""}

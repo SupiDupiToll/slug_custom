@@ -12,7 +12,7 @@ import {
   DialogTitle,
 } from "@/ui/dialog";
 import { Button } from "@/ui/button";
-import { DownloadIcon } from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -59,7 +59,7 @@ const CopyQR = ({ linkInfo }: CopyQRProps) => {
         <DialogDescription>{linkInfo.description}</DialogDescription>
       </DialogHeader>
       <div className="my-3 flex flex-col items-center justify-center space-y-3 overflow-hidden">
-        <div className="rounded-lg border border-neutral-100 p-2 shadow-md dark:border-neutral-800">
+        <div className="rounded-lg border border-slate-800/50 p-2 shadow-md">
           <QRCode
             id="qr-code"
             size={128}
@@ -68,13 +68,13 @@ const CopyQR = ({ linkInfo }: CopyQRProps) => {
             viewBox={`0 0 128 128`}
           />
         </div>
-        <p className="block w-full truncate font-mono text-center font-medium">{`/${linkInfo.slug}`}</p>
+        <p className="block w-full truncate text-center font-mono font-medium">{`/${linkInfo.slug}`}</p>
       </div>
       <DialogFooter>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline">
-              <DownloadIcon size={14} />
+              <MaterialIcon name="download" size={14} />
               <span>Download QR</span>
             </Button>
           </DropdownMenuTrigger>

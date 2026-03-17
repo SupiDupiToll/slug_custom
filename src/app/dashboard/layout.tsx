@@ -11,8 +11,8 @@ interface DashboardLayoutProps {
 const DashboardLayout = (props: DashboardLayoutProps) => {
   return (
     <>
-      <nav className="fixed z-50 flex w-full items-center border-b border-neutral-200 bg-white backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-900">
-        <div className="container mx-auto w-full">
+      <nav className="border-primary/10 bg-background-dark/80 fixed top-20 z-40 flex h-16 w-full items-center border-b backdrop-blur-md">
+        <div className="mx-auto flex w-full max-w-7xl items-center px-6 lg:px-12">
           <div className="flex w-full items-center justify-between">
             <div className="mt-0 flex flex-row space-x-0 text-sm font-medium rtl:space-x-reverse">
               <DashboardRoutesComponent />
@@ -20,10 +20,14 @@ const DashboardLayout = (props: DashboardLayoutProps) => {
           </div>
         </div>
       </nav>
-      <main className={cn("container my-[68px] flex w-full items-center")}>
+      <main
+        className={cn(
+          "mx-auto mb-12 mt-36 flex w-full max-w-7xl px-6 lg:px-12",
+        )}
+      >
         {props.children}
       </main>
-      <Footer className="fixed bottom-0 py-4" />
+      <Footer className="py-6" />
     </>
   );
 };

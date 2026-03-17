@@ -15,7 +15,7 @@ import {
 import { deleteProfile } from "@/server/actions/profile";
 import { toast } from "sonner";
 import { Input } from "@/ui/input";
-import { LoaderIcon } from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 import { Button } from "@/ui/button";
 
 interface DeleteAccountProps {
@@ -81,7 +81,13 @@ const DeleteAccount = (props: DeleteAccountProps) => {
                 type="submit"
                 variant="destructive"
               >
-                {loading ?? <LoaderIcon size={16} className="animate-spin" />}
+                {loading && (
+                  <MaterialIcon
+                    name="progress_activity"
+                    size={16}
+                    className="animate-spin"
+                  />
+                )}
                 <span>{loading ? "Deleting..." : "Delete"}</span>
               </Button>
             </DialogFooter>

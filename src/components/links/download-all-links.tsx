@@ -2,7 +2,7 @@
 
 import { downloadAllLinks } from "@/server/actions/links";
 import { Button } from "@/ui/button";
-import { DownloadIcon, LoaderIcon } from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -38,9 +38,13 @@ const DownloadAllLinks = () => {
       disabled={isLoading}
     >
       {isLoading ? (
-        <LoaderIcon className="animate-spin" size={14} />
+        <MaterialIcon
+          name="progress_activity"
+          size={14}
+          className="animate-spin"
+        />
       ) : (
-        <DownloadIcon size={14} />
+        <MaterialIcon name="download" size={14} />
       )}
       <span>{isLoading ? "Exporting..." : "Export all links"}</span>
     </Button>

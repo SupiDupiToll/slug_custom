@@ -10,7 +10,7 @@ import {
 import Avatar from "boring-avatars";
 import UserMenu from "./user-menu";
 import { SignOut } from "./sign-out";
-import { ArrowRight } from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 import Link from "next/link";
 
 export default async function UserButton() {
@@ -26,7 +26,11 @@ export default async function UserButton() {
         })}
       >
         <span>Admin Login</span>
-        <ArrowRight className="ml-2 h-4 w-4 transform transition-transform group-hover:translate-x-[2px]" />
+        <MaterialIcon
+          name="arrow_forward"
+          size={16}
+          className="ml-2 transform transition-transform group-hover:translate-x-[2px]"
+        />
       </Link>
     );
 

@@ -6,7 +6,7 @@ import {
 } from "@/ui/tooltip";
 import { cn } from "@/utils";
 import { formatDate } from "@/utils/formatDate";
-import { BarChartIcon } from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 
 interface ShowClicksProps {
   numberOfClicks: number;
@@ -28,7 +28,7 @@ const ShowClicks = ({
             className,
           )}
         >
-          <BarChartIcon size={14} />
+          <MaterialIcon name="bar_chart" size={14} />
           <span className="font-mono">{numberOfClicks} clicks</span>
         </TooltipTrigger>
         <TooltipContent sideOffset={5}>

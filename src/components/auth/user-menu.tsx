@@ -1,15 +1,8 @@
 "use client";
 
 import { DropdownMenuItem } from "@/ui/dropdown-menu";
-import {
-  ArrowUpRight,
-  BugIcon,
-  HomeIcon,
-  LayoutDashboardIcon,
-  SettingsIcon,
-} from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 import Link from "next/link";
-import { XLogo } from "@/components/icons/logos";
 
 const UserMenu = () => {
   const iconSize = 15;
@@ -18,19 +11,19 @@ const UserMenu = () => {
     <>
       <DropdownMenuItem asChild>
         <Link href="/">
-          <HomeIcon size={iconSize} />
+          <MaterialIcon name="home" size={iconSize} />
           <span>Home</span>
         </Link>
       </DropdownMenuItem>
       <DropdownMenuItem asChild>
         <Link href="/dashboard">
-          <LayoutDashboardIcon size={iconSize} />
+          <MaterialIcon name="space_dashboard" size={iconSize} />
           <span>Dashboard</span>
         </Link>
       </DropdownMenuItem>
       <DropdownMenuItem asChild>
         <Link href="/dashboard/settings">
-          <SettingsIcon size={iconSize} />
+          <MaterialIcon name="settings" size={iconSize} />
           <span>Settings</span>
         </Link>
       </DropdownMenuItem>
@@ -43,10 +36,14 @@ const UserMenu = () => {
           target="_blank"
         >
           <div className="flex items-center space-x-3">
-            <BugIcon size={iconSize} />
+            <MaterialIcon name="bug_report" size={iconSize} />
             <span>Report a bug</span>
           </div>
-          <ArrowUpRight size={iconSize} className="opacity-40" />
+          <MaterialIcon
+            name="arrow_outward"
+            size={iconSize}
+            className="opacity-40"
+          />
         </Link>
       </DropdownMenuItem>
       <DropdownMenuItem
@@ -55,10 +52,14 @@ const UserMenu = () => {
       >
         <Link href="https://twitter.com/pheralb_" target="_blank">
           <div className="flex items-center space-x-3">
-            <XLogo width={iconSize} />
+            <MaterialIcon name="public" size={iconSize} />
             <span>Contact</span>
           </div>
-          <ArrowUpRight size={iconSize} className="opacity-40" />
+          <MaterialIcon
+            name="arrow_outward"
+            size={iconSize}
+            className="opacity-40"
+          />
         </Link>
       </DropdownMenuItem>
     </>

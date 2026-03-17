@@ -8,7 +8,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-
 import SelectTagsLink from "./select-tags-link";
 import { updateLink } from "@/server/actions/links";
 
@@ -23,7 +22,7 @@ import {
   DialogTrigger,
 } from "@/ui/dialog";
 import { Button } from "@/ui/button";
-import { LoaderIcon, LockIcon, LockOpenIcon, SaveIcon } from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 import Alert from "@/ui/alert";
 import {
   Form,
@@ -51,9 +50,10 @@ const EditLink = (props: EditLinkProps) => {
   const [isError, setError] = useState<boolean>(false);
   const [unlockSlug, setUnlockSlug] = useState<boolean>(true);
 
-
   // Tag-Handling
-  const [selectedTags, setSelectedTags] = useState<string[]>(props.linkTags.map(t => t.id));
+  const [selectedTags, setSelectedTags] = useState<string[]>(
+    props.linkTags.map((t) => t.id),
+  );
 
   // Main form:
   const form = useForm<z.infer<typeof EditLinkSchema>>({
@@ -116,9 +116,12 @@ const EditLink = (props: EditLinkProps) => {
                 tags={props.allTags}
                 selectedTags={selectedTags}
                 onSelectTag={(tag) => {
-                  if (!selectedTags.includes(tag)) setSelectedTags([...selectedTags, tag]);
+                  if (!selectedTags.includes(tag))
+                    setSelectedTags([...selectedTags, tag]);
                 }}
-                onDeleteTag={(tag) => setSelectedTags(selectedTags.filter(t => t !== tag))}
+                onDeleteTag={(tag) =>
+                  setSelectedTags(selectedTags.filter((t) => t !== tag))
+                }
               />
               <FormField
                 control={form.control}
@@ -149,11 +152,12 @@ const EditLink = (props: EditLinkProps) => {
                           {...field}
                           placeholder={props.link.slug}
                           disabled={unlockSlug}
+                          className="pr-12"
                         />
                         {unlockSlug ? (
                           <Popover>
                             <PopoverTrigger className="absolute bottom-0 right-0 top-0 flex items-center px-3">
-                              <LockIcon size={16} />
+                              <MaterialIcon name="lock" size={16} />
                             </PopoverTrigger>
                             <PopoverContent className="max-w-72 text-sm">
                               <p className="mb-2">
@@ -166,7 +170,7 @@ const EditLink = (props: EditLinkProps) => {
                                 variant="outline"
                                 className="w-full"
                               >
-                                <LockOpenIcon size={16} />
+                                <MaterialIcon name="lock_open" size={16} />
                                 <span>Unlock</span>
                               </Button>
                             </PopoverContent>
@@ -177,7 +181,7 @@ const EditLink = (props: EditLinkProps) => {
                             onClick={() => setUnlockSlug(true)}
                             className="absolute bottom-0 right-0 top-0 flex items-center px-3"
                           >
-                            <LockOpenIcon size={16} />
+                            <MaterialIcon name="lock_open" size={16} />
                           </button>
                         )}
                       </div>
@@ -213,9 +217,13 @@ const EditLink = (props: EditLinkProps) => {
               </DialogClose>
               <Button type="submit" disabled={loading}>
                 {loading ? (
-                  <LoaderIcon size={16} className="animate-spin" />
+                  <MaterialIcon
+                    name="progress_activity"
+                    size={16}
+                    className="animate-spin"
+                  />
                 ) : (
-                  <SaveIcon size={16} />
+                  <MaterialIcon name="save" size={16} />
                 )}
                 <span>{loading ? "Saving..." : "Save"}</span>
               </Button>

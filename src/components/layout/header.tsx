@@ -1,43 +1,32 @@
 import Link from "next/link";
 import { cn } from "@/utils";
-
-import { buttonVariants } from "@/ui/button";
-import ExternalLink from "@/ui/external-link";
-import { Badge } from "@/ui/badge";
-
-import { ModeToggle } from "@/components/change-theme";
 import UserButton from "@/components/auth/user-btn";
 import Logo from "@/components/icons/logo";
-import { GithubLogo } from "@/components/icons/logos";
 import CommandK from "@/components/commandK";
 
 const Header = () => {
   return (
     <nav
       className={cn(
-        "flex w-full",
-        "pb-3 pt-4 lg:px-4",
-        "sticky top-0 z-50",
-        "bg-white dark:bg-neutral-900",
+        "fixed top-0 z-50 w-full",
+        "border-primary/10 h-20 border-b",
+        "bg-background-dark/80 backdrop-blur-md",
       )}
     >
-      <div
-        className={cn("flex w-full items-center justify-between", "container")}
-      >
+      <div className="mx-auto flex h-full w-full max-w-7xl items-center justify-between px-6 lg:px-12">
         <div className="flex items-center space-x-5">
-          <div className="flex items-center space-x-1 pr-1 md:pr-4">
-            <Link
-              href="/"
-              className="flex items-center space-x-3 transition-opacity hover:opacity-80 rtl:space-x-reverse"
-            >
-              <span className="self-center whitespace-nowrap text-lg font-bold tracking-tight dark:text-white">
-                go.sdtoll.de
-              </span>
-            </Link>
-          </div>
+          <Link
+            href="/"
+            className="flex items-center space-x-3 transition-opacity hover:opacity-80 rtl:space-x-reverse"
+          >
+            <span className="font-display text-lg font-black tracking-tight text-slate-100">
+              go.sdtoll.de
+              <span className="text-primary">.</span>
+            </span>
+          </Link>
         </div>
-        <div className="flex items-center space-x-1">
-          <ModeToggle />
+        <div className="flex items-center space-x-2">
+          <CommandK />
           <UserButton />
         </div>
       </div>

@@ -32,7 +32,7 @@ import {
   FormMessage,
 } from "@/ui/form";
 import { Input } from "@/ui/input";
-import { LoaderIcon, RocketIcon } from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 
 interface CreateTagProps {
   children: ReactNode;
@@ -128,9 +128,13 @@ export function CreateTag(props: CreateTagProps) {
               </DialogClose>
               <Button type="submit" disabled={loading}>
                 {loading ? (
-                  <LoaderIcon size={16} className="animate-spin" />
+                  <MaterialIcon
+                    name="progress_activity"
+                    size={16}
+                    className="animate-spin"
+                  />
                 ) : (
-                  <RocketIcon size={16} />
+                  <MaterialIcon name="rocket_launch" size={16} />
                 )}
                 <span>{loading ? "Creating..." : "Create Tag"}</span>
               </Button>

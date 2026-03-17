@@ -6,7 +6,7 @@ import CardLink from "@/components/links/card-link";
 import SearchLinks from "@/components/links/search-link";
 import { CreateLink } from "@/components/links/create-link";
 import { Button } from "@/ui/button";
-import { PackageOpenIcon, PlusIcon, SparklesIcon } from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 import SearchTag from "@/components/tags/search-tags";
 import LinksLimit from "@/components/links/links-limit";
 import UserBlocked from "@/components/settings/userBlocked";
@@ -62,7 +62,7 @@ const DashboardPage = async ({
           />
           <CreateLink tags={data.tags}>
             <Button>
-              <PlusIcon size={16} />
+              <MaterialIcon name="add" size={16} />
               <span className="hidden md:block">Create Link</span>
             </Button>
           </CreateLink>
@@ -89,9 +89,9 @@ const DashboardPage = async ({
       {filteredLinks.length === 0 && (
         <div className="mt-4 flex flex-col items-center justify-center space-y-3 text-center">
           {searchLink ? (
-            <PackageOpenIcon size={48} strokeWidth={0.5} />
+            <MaterialIcon name="inventory_2" size={48} />
           ) : (
-            <SparklesIcon size={48} strokeWidth={0.5} />
+            <MaterialIcon name="auto_awesome" size={48} />
           )}
           {searchLink ? (
             <p>
@@ -105,7 +105,7 @@ const DashboardPage = async ({
           )}
           <CreateLink tags={data.tags} slug={searchLink}>
             <Button variant="outline">
-              <PlusIcon size={14} />
+              <MaterialIcon name="add" size={14} />
               <span>
                 {searchLink
                   ? `Create a link with ${searchLink} slug`

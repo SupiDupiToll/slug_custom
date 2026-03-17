@@ -1,8 +1,6 @@
 import ExternalLink from "@/ui/external-link";
 import { cn } from "@/utils";
 import React from "react";
-import { T3Logo, XLogo } from "../icons/logos";
-import { ArrowUpRight, Heart } from "lucide-react";
 
 interface FooterProps {
   className?: string;
@@ -12,24 +10,33 @@ const Footer = (props: FooterProps) => {
   return (
     <footer
       className={cn(
-        "group w-full text-sm text-neutral-600 animate-in fade-in-25 dark:text-neutral-400",
-        "bg-white/60 backdrop-blur-md dark:bg-neutral-900/60",
+        "group w-full text-sm text-slate-400",
+        "bg-background-dark/80 border-t border-slate-800/50 backdrop-blur-md",
         props.className,
       )}
     >
-      <div className={cn("container flex items-center justify-center")}> 
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-center px-6 lg:px-12">
         <div className="flex items-center space-x-2">
-          <Heart
-            size={14}
-            className="text-red-500 group-hover:transform group-hover:animate-pulse"
-          />
+          <span className="material-symbols-outlined text-primary">
+            favorite
+          </span>
           <ExternalLink
             href="https://github.com/pheralb/slug"
-            className="flex items-center space-x-1"
+            className="hover:text-primary flex items-center space-x-1 transition-colors"
           >
             <p>Basiert auf dem tollem Projekt Slug</p>
-
-            <ArrowUpRight size={14} />
+            <span className="material-symbols-outlined text-base">
+              arrow_outward
+            </span>
+          </ExternalLink>
+          <ExternalLink
+            href="https://sdtoll.de"
+            className="hover:text-primary flex items-center space-x-1 transition-colors"
+          >
+            <p>Design by SDT</p>
+            <span className="material-symbols-outlined text-base">
+              arrow_outward
+            </span>
           </ExternalLink>
         </div>
       </div>

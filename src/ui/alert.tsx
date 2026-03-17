@@ -1,12 +1,6 @@
 import type { ReactNode } from "react";
 
 import { cn } from "@/utils";
-import {
-  AlertTriangleIcon,
-  CheckIcon,
-  CircleXIcon,
-  InfoIcon,
-} from "lucide-react";
 
 interface AlertProps {
   variant: "error" | "success" | "warning" | "info";
@@ -36,32 +30,36 @@ const Alert = (props: AlertProps) => {
       )}
     >
       {props.variant === "success" && (
-        <CheckIcon
-          strokeWidth={1.5}
-          className={props.iconClassname}
-          size={props.iconSize ?? 18}
-        />
+        <span
+          className={cn("material-symbols-outlined", props.iconClassname)}
+          style={{ fontSize: props.iconSize ?? 18 }}
+        >
+          check_circle
+        </span>
       )}
       {props.variant === "error" && (
-        <CircleXIcon
-          strokeWidth={1.5}
-          className={props.iconClassname}
-          size={props.iconSize ?? 18}
-        />
+        <span
+          className={cn("material-symbols-outlined", props.iconClassname)}
+          style={{ fontSize: props.iconSize ?? 18 }}
+        >
+          cancel
+        </span>
       )}
       {props.variant === "warning" && (
-        <AlertTriangleIcon
-          strokeWidth={1.5}
-          className={props.iconClassname}
-          size={props.iconSize ?? 18}
-        />
+        <span
+          className={cn("material-symbols-outlined", props.iconClassname)}
+          style={{ fontSize: props.iconSize ?? 18 }}
+        >
+          warning
+        </span>
       )}
       {props.variant === "info" && (
-        <InfoIcon
-          strokeWidth={1.5}
-          className={props.iconClassname}
-          size={props.iconSize ?? 18}
-        />
+        <span
+          className={cn("material-symbols-outlined", props.iconClassname)}
+          style={{ fontSize: props.iconSize ?? 18 }}
+        >
+          info
+        </span>
       )}
       {props.children}
     </div>

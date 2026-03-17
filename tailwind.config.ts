@@ -1,6 +1,4 @@
 import type { Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
-
 const config = {
   darkMode: ["class"],
   content: [
@@ -11,32 +9,32 @@ const config = {
   ],
   prefix: "",
   theme: {
-    container: {
-      center: true,
-      padding: "1rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
       colors: {
-        nordway: {
-          50: "#E7E7E9",
-          100: "#D1D2D6",
-          200: "#A3A6AD",
-          300: "#747781",
-          400: "#4B4D53",
-          500: "#222326",
-          600: "#1A1B1E",
-          700: "#131416",
-          800: "#0E0F10",
-          900: "#070708",
-          950: "#020203",
-        },
+        primary: "#b7e44b",
+        "background-light": "#f5f6f8",
+        "background-dark": "#101622",
+        "slate-100": "#f1f5f9",
+        "slate-400": "#94a3b8",
+        "slate-500": "#64748b",
+        "slate-800": "#1e293b",
+        "slate-900": "#0f172a",
       },
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
-        mono: ["var(--font-geist-mono)", ...fontFamily.mono],
+        sans: ["Manrope", "sans-serif"],
+        display: ["Playfair Display", "serif"],
+        mono: [
+          "var(--font-geist-mono)",
+          "ui-monospace",
+          "SFMono-Regular",
+          "monospace",
+        ],
+      },
+      borderRadius: {
+        DEFAULT: "1.5rem",
+        lg: "1.5rem",
+        xl: "1.5rem",
+        full: "9999px",
       },
       keyframes: {
         "accordion-down": {

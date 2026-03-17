@@ -7,25 +7,24 @@ import { headers } from "next/headers";
 // ...existing code...
 
 const NotFoundPage = async () => {
-// ...existing code...
+  // ...existing code...
   return (
     <>
-      <div className="mx-auto max-w-screen-xl px-4 py-8 lg:py-16">
+      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-12 lg:py-40">
         <div className="mx-auto max-w-screen-sm text-center">
-          <h1 className="mb-4 font-mono text-6xl font-bold tracking-tight lg:text-7xl">
+          <h1 className="font-display mb-4 text-6xl font-black tracking-tight lg:text-7xl">
             404
           </h1>
-          <p className="mb-4 text-3xl font-medium tracking-tight text-gray-900 dark:text-white md:text-4xl">
+          <p className="mb-4 text-3xl font-medium tracking-tight text-slate-100 md:text-4xl">
             Page not found
           </p>
-          <p className="mb-4 font-mono text-sm font-light text-gray-500 dark:text-gray-400">
+          <p className="mb-4 font-mono text-sm font-light text-slate-500">
             {`URL nicht gefunden. Bist du sicher, dass du die richtige URL eingegeben hast?`}
           </p>
-          <div className="flex items-center justify-center space-x-2">
-          </div>
+          <div className="flex items-center justify-center space-x-2"></div>
         </div>
       </div>
-      <Footer className="fixed bottom-0 mt-4 py-4" />
+      <Footer className="py-6" />
     </>
   );
 };

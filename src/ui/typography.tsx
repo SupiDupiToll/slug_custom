@@ -9,7 +9,7 @@ export const TypographyH1 = forwardRef<
     <h1
       ref={ref}
       className={cn(
-        "mt-6 text-5xl font-bold tracking-tight lg:text-6xl",
+        "font-display mt-6 text-5xl font-black leading-[1.1] tracking-tight md:text-7xl lg:text-8xl",
         className,
       )}
       {...props}
@@ -27,7 +27,7 @@ export const TypographyH2 = forwardRef<
     <h2
       ref={ref}
       className={cn(
-        "mt-6 text-4xl font-bold tracking-tight lg:text-5xl",
+        "font-display mt-6 text-4xl font-black tracking-tight md:text-5xl",
         className,
       )}
       {...props}
@@ -45,7 +45,7 @@ export const TypographyH3 = forwardRef<
     <h3
       ref={ref}
       className={cn(
-        "mt-6 text-3xl font-bold tracking-tight lg:text-4xl",
+        "font-display mt-6 text-3xl font-bold tracking-tight lg:text-4xl",
         className,
       )}
       {...props}
@@ -63,7 +63,7 @@ export const TypographyH4 = forwardRef<
     <h4
       ref={ref}
       className={cn(
-        "mt-2 text-2xl font-semibold tracking-tight lg:text-3xl",
+        "font-display mt-2 text-2xl font-bold tracking-tight lg:text-3xl",
         className,
       )}
       {...props}
@@ -81,7 +81,7 @@ export const TypographyP = forwardRef<
     <p
       ref={ref}
       className={cn(
-        "text-pretty leading-7 [&:not(:first-child)]:mt-4",
+        "text-pretty text-lg leading-relaxed text-slate-400 md:text-xl [&:not(:first-child)]:mt-4",
         className,
       )}
       {...props}

@@ -6,7 +6,7 @@ import DeleteAccount from "@/components/settings/delete-account";
 import { Button } from "@/ui/button";
 import SettingsCard from "@/components/settings/card";
 import DownloadAllLinks from "@/components/links/download-all-links";
-import { HeartCrackIcon } from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 import UserBlocked from "@/components/settings/userBlocked";
 
 export const metadata: Metadata = {
@@ -38,7 +38,7 @@ const SettingsPage = async () => {
             email={session.user.email!}
             trigger={
               <Button variant="destructive" size="sm">
-                <HeartCrackIcon size={14} />
+                <MaterialIcon name="heart_broken" size={14} />
                 <span>Delete Account</span>
               </Button>
             }

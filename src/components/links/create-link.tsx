@@ -32,7 +32,7 @@ import {
   FormMessage,
 } from "@/ui/form";
 import { Input, Textarea } from "@/ui/input";
-import { LoaderIcon, RocketIcon, ShuffleIcon, TagsIcon } from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 import { insertTagToLink } from "@/server/actions/tags";
 import SelectTagsLink from "./select-tags-link";
 
@@ -137,7 +137,7 @@ export function CreateLink(props: CreateLinkProps) {
   const generateConfetti = async () => {
     const jsConfetti = new JSConfetti();
     await jsConfetti.addConfetti({
-      confettiColors: ["#fdd835", "#4caf50", "#2196f3", "#f44336", "#ff9800"],
+      confettiColors: ["#b7e44b"],
       confettiRadius: 3,
       confettiNumber: 50,
     });
@@ -190,13 +190,14 @@ export function CreateLink(props: CreateLinkProps) {
                           {...field}
                           placeholder="mylink"
                           disabled={loading}
+                          className="pr-28"
                         />
                         <Button
                           onClick={handleGenerateRandomSlug}
                           variant="outline"
-                          className="absolute right-0 rounded-none rounded-br-md rounded-tr-md"
+                          className="absolute right-2 h-9 px-4"
                         >
-                          <ShuffleIcon size={14} />
+                          <MaterialIcon name="shuffle" size={14} />
                           <span>Randomize</span>
                         </Button>
                       </div>
@@ -250,8 +251,8 @@ export function CreateLink(props: CreateLinkProps) {
                   tags={props.tags}
                 />
               ) : (
-                <div className="flex items-center justify-center space-x-2 rounded-md border border-neutral-200 py-3 text-sm dark:border-neutral-800">
-                  <TagsIcon size={16} />
+                <div className="flex items-center justify-center space-x-2 rounded-lg border border-slate-800/50 py-3 text-sm">
+                  <MaterialIcon name="sell" size={16} />
                   <p className="font-medium">You don't have any tag created.</p>
                 </div>
               )}
@@ -264,9 +265,13 @@ export function CreateLink(props: CreateLinkProps) {
               </DialogClose>
               <Button type="submit" disabled={loading}>
                 {loading ? (
-                  <LoaderIcon size={16} className="animate-spin" />
+                  <MaterialIcon
+                    name="progress_activity"
+                    size={16}
+                    className="animate-spin"
+                  />
                 ) : (
-                  <RocketIcon size={16} />
+                  <MaterialIcon name="rocket_launch" size={16} />
                 )}
                 <span>{loading ? "Creating..." : "Create"}</span>
               </Button>

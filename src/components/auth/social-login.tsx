@@ -1,18 +1,17 @@
 "use client";
 
 import { Button } from "@/ui/button";
-import { GithubLogo } from "@/components/icons/logos";
+import MaterialIcon from "@/components/icons/material";
 import { signIn } from "next-auth/react";
 import { DEFAULT_LOGIN_REDIRECT_URL } from "@/routes";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { Loader } from "lucide-react";
 import { toast } from "sonner";
 
 const socialProviders = [
   {
     name: "Login mit GitHub",
-    icon: <GithubLogo className="h-4 w-4" />,
+    icon: <MaterialIcon name="code" size={18} />,
     provider: "github",
   },
 ];
@@ -52,7 +51,11 @@ const SocialLogin = () => {
           onClick={() => handleSocialLogin(sp.provider)}
         >
           {provider === sp.provider ? (
-            <Loader className="animate-spin" size={18} />
+            <MaterialIcon
+              name="progress_activity"
+              size={18}
+              className="animate-spin"
+            />
           ) : (
             sp.icon
           )}

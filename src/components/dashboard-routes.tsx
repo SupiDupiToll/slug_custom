@@ -2,19 +2,18 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Link2Icon, SettingsIcon } from "lucide-react";
 import { cn } from "@/utils";
 
 const DashboardRoutes = [
   {
     title: "Links",
     path: "/dashboard",
-    icon: Link2Icon,
+    icon: "link",
   },
   {
     title: "Settings",
     path: "/dashboard/settings",
-    icon: SettingsIcon,
+    icon: "settings",
   },
 ];
 
@@ -28,17 +27,16 @@ const DashboardRoutesComponent = () => {
             key={route.path}
             href={route.path}
             className={cn(
-              "group relative px-1 pb-4 pt-3 text-sm font-medium outline-2 outline-sky-400 transition-colors duration-100 hover:bg-transparent hover:text-neutral-900 focus-visible:outline dark:hover:text-white",
+              "hover:text-primary group relative px-1 pb-4 pt-3 text-sm font-medium transition-colors duration-200 focus-visible:outline",
               pathname === route.path
-                ? "border-b border-neutral-800 dark:border-white dark:text-white"
-                : "text-neutral-500",
+                ? "border-primary/60 border-b text-slate-100"
+                : "text-slate-500",
             )}
           >
             <div className=" relative z-10 flex items-center space-x-2">
-              <route.icon
-                size={18}
-                className="duration-300 group-hover:rotate-6"
-              />
+              <span className="material-symbols-outlined text-base">
+                {route.icon}
+              </span>
               <span>{route.title}</span>
             </div>
           </Link>

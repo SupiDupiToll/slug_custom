@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/ui/select";
-import { XIcon } from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 
 interface SelectTagsLinkProps {
   className?: string;
@@ -36,11 +36,11 @@ const SelectTagsLink = (props: SelectTagsLinkProps) => {
         </SelectContent>
       </Select>
       {props.selectedTags.length > 0 && (
-        <div className="flex items-center overflow-hidden rounded-md border border-neutral-200 p-2 text-sm tracking-tight shadow-sm dark:border-neutral-800">
+        <div className="flex items-center overflow-hidden rounded-lg border border-slate-800/50 p-2 text-sm tracking-tight shadow-sm">
           {props.selectedTags.map((tag) => (
             <div
               key={tag}
-              className="mr-1 flex items-center space-x-2 rounded-md bg-neutral-200 px-2 py-1 dark:bg-neutral-800"
+              className="mr-1 flex items-center space-x-2 rounded-full bg-slate-800 px-2 py-1"
             >
               <span>{props.tags.find((t) => t.id === tag)?.name}</span>
               <button
@@ -48,7 +48,7 @@ const SelectTagsLink = (props: SelectTagsLinkProps) => {
                 className="opacity-50 transition-opacity duration-200 hover:opacity-100"
                 onClick={() => props.onDeleteTag(tag)}
               >
-                <XIcon size={12} />
+                <MaterialIcon name="close" size={12} />
               </button>
             </div>
           ))}

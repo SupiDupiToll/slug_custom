@@ -21,14 +21,6 @@ import Header from "@/components/layout/header";
 // Fonts:
 import localFont from "next/font/local";
 
-const interVariable = localFont({
-  variable: "--font-sans",
-  src: "../fonts/InterVariable.woff2",
-  weight: "100 900",
-  display: "swap",
-  preload: true,
-});
-
 const geistMonoVariable = localFont({
   variable: "--font-geist-mono",
   src: "../fonts/GeistMonoVF.woff2",
@@ -93,7 +85,7 @@ export const metadata: Metadata = {
 
 // Viewport:
 export const viewport: Viewport = {
-  themeColor: "#171717",
+  themeColor: "#101622",
 };
 
 // App layout:
@@ -105,18 +97,33 @@ export default function RootLayout({
   // Client-Logik ausgelagert in AppClient
 
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://googledonts.private.coffee/css2?family=Manrope:wght@400;500;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&display=swap"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&display=swap"
+        />
+      </head>
       <body
         className={cn(
-          `font-sans ${interVariable.variable} ${geistMonoVariable.variable} antialiased`,
-          "bg-white dark:bg-neutral-900",
-          "selection:bg-neutral-200 dark:selection:bg-neutral-700",
+          `font-sans ${geistMonoVariable.variable} antialiased`,
+          "bg-background-dark text-slate-100",
+          "selection:bg-primary/30 selection:text-slate-100",
         )}
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="dark"
+          enableSystem={false}
+          forcedTheme="dark"
           disableTransitionOnChange
         >
           <Header />

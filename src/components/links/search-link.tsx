@@ -2,7 +2,7 @@
 
 import { Input } from "@/ui/input";
 import { cn } from "@/utils";
-import { SearchIcon } from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 
@@ -30,9 +30,10 @@ const SearchLinks = (props: SearchLinksProps) => {
 
   return (
     <div className={cn("relative", props.className)}>
-      <SearchIcon
-        className="absolute left-2 top-1/2 -translate-y-1/2 transform text-neutral-400"
+      <MaterialIcon
+        name="search"
         size={16}
+        className="absolute left-2 top-1/2 -translate-y-1/2 transform text-slate-400"
       />
       <Input
         type="search"

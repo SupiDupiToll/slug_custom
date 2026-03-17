@@ -17,7 +17,7 @@ import {
 
 import { removeTag } from "@/server/actions/tags";
 import { Button } from "@/ui/button";
-import { LoaderIcon } from "lucide-react";
+import MaterialIcon from "@/components/icons/material";
 
 interface DeleteTagProps {
   tag: Tags;
@@ -61,7 +61,15 @@ const DeleteTag = ({ trigger, tag }: DeleteTagProps) => {
             onClick={handleDeleteTag}
             disabled={loading}
           >
-            {loading ? <LoaderIcon size={16} /> : "Delete Tag"}
+            {loading ? (
+              <MaterialIcon
+                name="progress_activity"
+                size={16}
+                className="animate-spin"
+              />
+            ) : (
+              "Delete Tag"
+            )}
           </Button>
         </DialogFooter>
       </DialogContent>
