@@ -24,7 +24,7 @@ const Footer = (props: FooterProps) => {
             href="https://github.com/pheralb/slug"
             className="hover:text-primary flex items-center space-x-1 transition-colors"
           >
-            <p>Basiert auf dem tollem Projekt Slug</p>
+            <p>Fork von Slug</p>
             <span className="material-symbols-outlined text-base">
               arrow_outward
             </span>
