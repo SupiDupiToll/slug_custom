@@ -1,5 +1,6 @@
 import ExternalLink from "@/ui/external-link";
 import { cn } from "@/utils";
+import Script from "next/script";
 import React from "react";
 
 interface FooterProps {
@@ -38,8 +39,18 @@ const Footer = (props: FooterProps) => {
               arrow_outward
             </span>
           </ExternalLink>
+          <a
+            data-impressum-popup
+            className="hover:text-primary cursor-pointer transition-colors"
+          >
+            Impressum
+          </a>
         </div>
       </div>
+      <Script
+        src="https://embed.impressum.mangoe.de/impressum-embed.js"
+        strategy="afterInteractive"
+      />
     </footer>
   );
 };
