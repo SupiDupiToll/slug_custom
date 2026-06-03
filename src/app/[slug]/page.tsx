@@ -1,5 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 
+import { RedirectFlow } from "@/components/links/redirect-flow";
 import { urlFromServer } from "@/server/middleware/redirect";
 
 interface SlugPageProps {
@@ -20,7 +21,7 @@ export default async function SlugPage({ params }: SlugPageProps) {
   }
 
   if (getDataApi.url) {
-    redirect(getDataApi.url);
+    return <RedirectFlow targetUrl={getDataApi.url} />;
   }
 
   notFound();
