@@ -31,14 +31,13 @@ export function RedirectFlow({
   const [screenshotIndex, setScreenshotIndex] = useState(0);
 
   const continueToTarget = () => {
-    const newTab = window.open("about:blank", "_blank", "noopener,noreferrer");
+    const newTab = window.open(targetUrl, "_blank", "noopener,noreferrer");
 
     if (!newTab) {
       window.location.assign(EXIT_URL);
       return;
     }
 
-    newTab.location.href = targetUrl;
     window.location.assign(EXIT_URL);
   };
 
