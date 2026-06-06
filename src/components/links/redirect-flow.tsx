@@ -62,6 +62,10 @@ export function RedirectFlow({
             >
               Open Link
             </button>
+            <p className="mt-3 text-xs leading-5 text-slate-500">
+              Der ursprüngliche Tab leitet anschließend auf eine Werbeseite
+              weiter.
+            </p>
           </section>
         </main>
         <Footer className="py-6" />
@@ -136,6 +140,10 @@ export function RedirectFlow({
                 >
                   Weiter zur Zielseite
                 </button>
+                <p className="hidden text-xs leading-5 text-slate-500 lg:block">
+                  Der ursprüngliche Tab leitet anschließend auf eine Werbeseite
+                  weiter.
+                </p>
               </div>
             </section>
           </div>
@@ -153,6 +161,10 @@ export function RedirectFlow({
           >
             Weiter zur Zielseite
           </button>
+          <p className="text-xs leading-5 text-slate-500">
+            Der ursprüngliche Tab leitet anschließend auf eine Werbeseite
+            weiter.
+          </p>
         </div>
       </div>
       <Footer className="py-6" />
