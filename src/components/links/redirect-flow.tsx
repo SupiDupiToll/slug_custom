@@ -44,7 +44,7 @@ export function RedirectFlow({
   if (variant === "compact") {
     return (
       <>
-        <main className="flex min-h-screen items-center justify-center bg-background-dark px-4 py-10 text-slate-100">
+        <main className="flex min-h-screen items-center justify-center bg-background-dark px-4 pb-10 pt-24 text-slate-100 sm:pt-28">
           <section className="w-full max-w-md rounded-xl border border-slate-800/50 bg-slate-900/40 p-6 text-center shadow-sm">
             <p className="text-xs font-bold uppercase tracking-wide text-primary">
               Redirect
@@ -71,7 +71,7 @@ export function RedirectFlow({
 
   return (
     <>
-      <main className="min-h-screen bg-background-dark px-4 pb-32 pt-6 text-slate-100 sm:px-6 sm:py-10 lg:px-8 lg:pb-10">
+      <main className="min-h-screen bg-background-dark px-4 pb-32 pt-24 text-slate-100 sm:px-6 sm:pt-28 lg:px-8 lg:pt-32 lg:pb-10">
         <section className="mx-auto flex w-full max-w-5xl flex-col gap-5 sm:gap-6">
           <header className="space-y-3">
             <p className="text-xs font-bold uppercase tracking-wide text-primary">
