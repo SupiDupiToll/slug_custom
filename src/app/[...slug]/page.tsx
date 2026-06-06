@@ -43,9 +43,10 @@ const getSlugValue = (slugParts: string[]) => {
 export default async function SlugPage({ params }: SlugPageProps) {
   const slugValue = getSlugValue(params.slug);
   const targetUrl = normalizeTargetUrl(slugValue);
+  const isDirectTarget = isSafeRedirectUrl(targetUrl) || isDomainLikeTarget(slugValue);
 
-  if (isSafeRedirectUrl(targetUrl) || isDomainLikeTarget(slugValue)) {
-    return <RedirectFlow targetUrl={targetUrl} />;
+  if (isDirectTarget) {
+    return <RedirectFlow targetUrl={targetUrl} variant="direct" />;
   }
 
   const getDataApi = await urlFromServer(slugValue);
@@ -59,7 +60,7 @@ export default async function SlugPage({ params }: SlugPageProps) {
   }
 
   if (getDataApi.url) {
-    return <RedirectFlow targetUrl={getDataApi.url} />;
+    return <RedirectFlow targetUrl={getDataApi.url} variant="compact" />;
   }
 
   notFound();
