@@ -21,7 +21,7 @@ export default auth(async (req) => {
   const isProtectedRoute = protectedRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
-  const slugRoute = req.nextUrl.pathname.split("/").pop();
+  const slugRoute = req.nextUrl.pathname.split("/").slice(1).join("/");
 
   // ⚙️ Is Api Route:
   if (isApiAuthRoute) {
