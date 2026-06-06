@@ -1,3 +1,5 @@
+"use client";
+
 import ExternalLink from "@/ui/external-link";
 import { cn } from "@/utils";
 import Script from "next/script";
