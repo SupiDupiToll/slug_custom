@@ -1,5 +1,6 @@
 // keine 'use client' Direktive hier
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 
 // Styles:
 import "@/styles/globals.css";
@@ -131,6 +132,17 @@ export default function RootLayout({
           {children}
           <ToasterComponent />
         </ThemeProvider>
+        <Script
+          src="https://5gvci.com/act/files/tag.min.js?z=11113313"
+          async
+          data-cfasync="false"
+        />
+        <Script id="ad-zone-11113316" strategy="afterInteractive">
+          {`(function(s){s.dataset.zone='11113316',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`}
+        </Script>
+        <Script id="ad-zone-11113318" strategy="afterInteractive">
+          {`(function(s){s.dataset.zone='11113318',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`}
+        </Script>
         <AppClient />
         <Analytics />
       </body>
