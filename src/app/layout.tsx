@@ -99,6 +99,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
+        <meta name="monetag" content="3d04e0fce33c0aa4e321819743b52574" />
         <link
           rel="stylesheet"
           href="https://googledonts.private.coffee/css2?family=Manrope:wght@400;500;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&display=swap"
