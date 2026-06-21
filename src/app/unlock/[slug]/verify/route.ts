@@ -15,24 +15,15 @@ const isSafeRedirectUrl = (value: string) => {
   }
 };
 
-const escapeHtml = (value: string) =>
-  value
-    .replaceAll("&", "&amp;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;");
-
 const redirectFlowHtml = (targetUrl: string) => {
   const targetJson = JSON.stringify(targetUrl);
-  const exitJson = JSON.stringify("https://omg10.com/4/11086887");
-  const escapedTargetUrl = escapeHtml(targetUrl);
 
   return `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Open destination</title>
+    <title>Redirect</title>
     <style>
       body {
         min-height: 100vh;
@@ -54,14 +45,25 @@ const redirectFlowHtml = (targetUrl: string) => {
         text-align: center;
       }
 
+      h1 {
+        margin: 0;
+        font-size: 24px;
+      }
+
       p {
         margin: 8px 0 0;
         color: #94a3b8;
         font-size: 14px;
       }
 
-      button,
-      a {
+      .countdown {
+        margin-top: 24px;
+        font-size: 64px;
+        font-weight: 900;
+        color: #84cc16;
+      }
+
+      button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -76,37 +78,38 @@ const redirectFlowHtml = (targetUrl: string) => {
         font: inherit;
         font-size: 14px;
         font-weight: 700;
-        text-decoration: none;
         cursor: pointer;
       }
     </style>
   </head>
   <body>
     <main>
-      <h1>Open destination</h1>
-      <p id="message">Opening your link...</p>
-      <button type="button" id="open-link">Open link</button>
-      <a href="${escapedTargetUrl}" target="_blank" rel="noopener noreferrer">Open destination directly</a>
+      <h1>Ziel wird geöffnet</h1>
+      <p>Du wirst in Kürze weitergeleitet.</p>
+      <div class="countdown" id="countdown">3</div>
+      <button type="button" id="direct-link">Direkt weiter</button>
     </main>
     <script>
       const targetUrl = ${targetJson};
-      const exitUrl = ${exitJson};
-      const message = document.getElementById("message");
+      var countdownEl = document.getElementById("countdown");
+      var count = 3;
 
-      function openTargetAndExit() {
-        const newTab = window.open(targetUrl, "_blank");
-
-        if (!newTab) {
-          message.textContent = "Your browser blocked the new tab. Use the button below to continue.";
-          return;
-        }
-
-        newTab.opener = null;
-        window.location.assign(exitUrl);
+      function redirect() {
+        window.location.assign(targetUrl);
       }
 
-      document.getElementById("open-link").addEventListener("click", openTargetAndExit);
-      openTargetAndExit();
+      document.getElementById("direct-link").addEventListener("click", redirect);
+
+      var timer = setInterval(function () {
+        count--;
+        if (count <= 0) {
+          clearInterval(timer);
+          countdownEl.textContent = "✓";
+          redirect();
+        } else {
+          countdownEl.textContent = count;
+        }
+      }, 1000);
     </script>
   </body>
 </html>`;
