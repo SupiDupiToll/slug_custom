@@ -6,11 +6,18 @@ import MaterialIcon from "@/components/icons/material";
 interface DemoHeaderProps {
   slug: string;
   mode?: "landing" | "admin";
+  embed?: boolean;
 }
 
-const DemoHeader = ({ slug, mode = "landing" }: DemoHeaderProps) => {
+const DemoHeader = ({
+  slug,
+  mode = "landing",
+  embed = false,
+}: DemoHeaderProps) => {
   const landingHref = `/demos/${slug}`;
   const adminHref = `/demos/${slug}/admin`;
+
+  if (embed) return null;
 
   return (
     <nav

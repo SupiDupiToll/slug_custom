@@ -54,6 +54,19 @@ const nextConfig = {
           },
         ],
       },
+      {
+        source: "/demos/:path*",
+        headers: [
+          {
+            key: "X-Frame-Options",
+            value: "",
+          },
+          {
+            key: "Content-Security-Policy",
+            value: "frame-ancestors *",
+          },
+        ],
+      },
     ];
   },
 };

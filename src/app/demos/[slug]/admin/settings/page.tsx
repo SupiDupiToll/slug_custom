@@ -13,22 +13,27 @@ export const metadata: Metadata = {
 
 interface DemoAdminSettingsPageProps {
   params: { slug: string };
+  searchParams?: { embed?: string };
 }
 
 const DemoAdminSettingsPage = async ({
   params,
+  searchParams,
 }: DemoAdminSettingsPageProps) => {
   const slug = decodeURIComponent(params.slug);
+  const embed = searchParams?.embed === "1";
   const { user } = getDemoData(slug);
 
   return (
     <div className="flex w-full flex-col space-y-4 duration-500 animate-in fade-in-5 slide-in-from-bottom-2">
-      <Alert variant="info">
-        <p>
-          <strong>Demo-Modus:</strong> Diese Ansicht enthält ausschließlich
-          Dummy-Daten. Änderungen sind nicht möglich.
-        </p>
-      </Alert>
+      {!embed && (
+        <Alert variant="info">
+          <p>
+            <strong>Demo-Modus:</strong> Diese Ansicht enthält ausschließlich
+            Dummy-Daten. Änderungen sind nicht möglich.
+          </p>
+        </Alert>
+      )}
       <SettingsCard
         title="General"
         description="Update your personal information:"

@@ -15,24 +15,35 @@ export const metadata: Metadata = {
 
 interface DemosSlugPageProps {
   params: { slug: string };
+  searchParams?: { embed?: string };
 }
 
-const DemosSlugPage = async ({ params }: DemosSlugPageProps) => {
+const DemosSlugPage = async ({
+  params,
+  searchParams,
+}: DemosSlugPageProps) => {
   const slug = decodeURIComponent(params.slug);
+  const embed = searchParams?.embed === "1";
   const { links } = getDemoData(slug);
   const target = links[0];
 
   return (
     <>
-      <DemoHeader slug={slug} mode="landing" />
-      <main className="flex min-h-screen items-center justify-center bg-background-dark px-4 pb-10 pt-24 text-slate-100 sm:pt-28">
+      <DemoHeader slug={slug} mode="landing" embed={embed} />
+      <main
+        className={`flex min-h-screen items-center justify-center bg-background-dark px-4 pb-10 text-slate-100 ${
+          embed ? "pt-10" : "pt-24 sm:pt-28"
+        }`}
+      >
         <div className="w-full max-w-md space-y-4">
-          <Alert variant="info">
-            <p>
-              <strong>Demo-Modus:</strong> Vorschau der Link-Seite ohne echte
-              Weiterleitung.
-            </p>
-          </Alert>
+          {!embed && (
+            <Alert variant="info">
+              <p>
+                <strong>Demo-Modus:</strong> Vorschau der Link-Seite ohne echte
+                Weiterleitung.
+              </p>
+            </Alert>
+          )}
           <section className="rounded-xl border border-slate-800/50 bg-slate-900/40 p-6 text-center shadow-sm">
             <p className="text-xs font-bold uppercase tracking-wide text-primary">
               Redirect
@@ -79,7 +90,7 @@ const DemosSlugPage = async ({ params }: DemosSlugPageProps) => {
           </Link>
         </div>
       </main>
-      <Footer className="py-6" />
+      {!embed && <Footer className="py-6" />}
     </>
   );
 };

@@ -18,6 +18,7 @@ interface DemoAdminPageProps {
   searchParams?: {
     search?: string;
     tag?: string;
+    embed?: string;
   };
 }
 
@@ -26,6 +27,7 @@ const DemoAdminPage = async ({
   searchParams,
 }: DemoAdminPageProps) => {
   const slug = decodeURIComponent(params.slug);
+  const embed = searchParams?.embed === "1";
   const { tags, links } = getDemoData(slug);
   const searchLink = searchParams?.search;
   const searchTag = searchParams?.tag;
@@ -43,12 +45,14 @@ const DemoAdminPage = async ({
 
   return (
     <div className="w-full duration-500 animate-in fade-in-5 slide-in-from-bottom-2">
-      <Alert variant="info" className="mb-3">
-        <p>
-          <strong>Demo-Modus:</strong> Diese Ansicht enthält ausschließlich
-          Dummy-Daten. Änderungen sind nicht möglich.
-        </p>
-      </Alert>
+      {!embed && (
+        <Alert variant="info" className="mb-3">
+          <p>
+            <strong>Demo-Modus:</strong> Diese Ansicht enthält ausschließlich
+            Dummy-Daten. Änderungen sind nicht möglich.
+          </p>
+        </Alert>
+      )}
       <header className="mb-3 flex w-full items-center space-x-2 md:justify-between">
         <SearchLinks className="w-full md:w-72 md:max-w-72" />
         <div className="flex items-center space-x-2">
